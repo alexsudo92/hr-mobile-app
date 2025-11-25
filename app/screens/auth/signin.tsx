@@ -16,15 +16,15 @@ const SignIn = () => {
   
   return (
     <SafeAreaView className="items-center mt-10 gap-5 p-5">
-      <Text className="text-center text-lg">Sign in with your email or phone number</Text>
+      <Text className="text-center text-lg">Войдите с помощью электронной почты</Text>
       <Input
         keyboardType="email-address"
         textContentType="emailAddress"
         autoComplete="email"
-        placeholder="Email or phone number"
+        placeholder="Email"
       />
       <Button onPress={onSignIn}>
-        <Text>Sign in</Text>
+        <Text>Войти</Text>
       </Button>
     </SafeAreaView>
   );

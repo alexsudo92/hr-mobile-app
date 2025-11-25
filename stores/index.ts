@@ -1,3 +1,6 @@
 import useAuthStore from './authStore'
+import useJobStore from './jobStore'
+import useCandidateStore from './candidateStore';
 
-export { useAuthStore }
+
+export { useAuthStore, useJobStore, useCandidateStore }

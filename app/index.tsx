@@ -5,12 +5,13 @@ import { ThemeProvider } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PortalHost } from '@rn-primitives/portal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-export { ErrorBoundary } from 'expo-router';
 
 import IndexScreen from './screens/tabs/_layout';
 import SignInScreen from './screens/auth/signin';
 import SignUpScreen from './screens/auth/signup';
 import StartScreen from './screens/auth/startup';
+import JobViewerScreen from './screens/jobs/viewer';
+import JobEditorScreen from './screens/jobs/editor';
 
 import useAuthStore from '@/stores/authStore';
 
@@ -24,19 +25,37 @@ export default function RootLayout() {
       <ThemeProvider value={NAV_THEME['light']}>
         <Stack.Navigator>
           {isSignedIn ? (
-            <Stack.Screen name="main" component={IndexScreen} options={{ headerShown: false }} />
+            <Stack.Group>
+              <Stack.Screen name="main" component={IndexScreen} options={{ headerShown: false }} />
+              <Stack.Screen
+                name="jobViewer"
+                component={JobViewerScreen}
+                options={{
+                  headerTitle: 'Просмотр вакансии',
+                  headerTitleAlign: 'center'
+                }}
+              />
+              <Stack.Screen
+                name="jobEditor"
+                component={JobEditorScreen}
+                options={{
+                  headerTitle: 'Просмотр кандидата',
+                  headerTitleAlign: 'center'
+                }}
+              />
+            </Stack.Group>
           ) : (
             <Stack.Group>
               <Stack.Screen name="start" component={StartScreen} options={{ headerShown: false }} />
               <Stack.Screen
                 name="signin"
                 component={SignInScreen}
-                options={{ headerShown: true, headerTitle: 'Sign In', headerTitleAlign: 'center' }}
+                options={{ headerShown: true, headerTitle: 'Авторизация', headerTitleAlign: 'center' }}
               />
               <Stack.Screen
                 name="signup"
                 component={SignUpScreen}
-                options={{ headerShown: true, headerTitle: 'Sign Up', headerTitleAlign: 'center' }}
+                options={{ headerShown: true, headerTitle: 'Регистрация', headerTitleAlign: 'center' }}
               />
             </Stack.Group>
           )}
@@ -46,3 +65,5 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 }
+
+export { ErrorBoundary } from 'expo-router';

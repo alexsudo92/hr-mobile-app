@@ -22,19 +22,19 @@ const Startup = () => {
           <Icon color={'white'} as={LogIn} size={90} className="!opacity-100"></Icon>
         </View>
         <Text variant="h3" className="mt-10 text-center">
-          Sign in to your account
+          Войдите в свою учетную запись
         </Text>
         <Text variant="h3" className="mt-5 text-center">
-          Your access will stay on your device
+          Доступ к ней сохранится на вашем устройстве
         </Text>
       </View>
 
       <View className="flex-2 justify-center gap-3">
         <Button onPress={() => navigation.navigate('signin')}>
-          <Text>Sign in</Text>
+          <Text>Вход</Text>
         </Button>
         <Button variant="outline" onPress={() => navigation.navigate('signup')}>
-          <Text>Sign up</Text>
+          <Text>Регистрация</Text>
         </Button>
       </View>
     </SafeAreaView>

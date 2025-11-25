@@ -1,76 +1,47 @@
-import { View } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Text } from '@/components/ui/text'
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text } from '@/components/ui/text';
+import Filter, { FilterOption } from '@/app/components/Filter';
+import { CandidateData } from '@/types';
+import { useCandidateStore } from '@/stores';
 
-enum Filter {
+enum VacancyFilter {
   All,
   New,
   Reviewing,
   Offer,
   Hired,
-  Rejected
+  Rejected,
 }
+
+const filterOptions: FilterOption<VacancyFilter>[] = [
+  { value: VacancyFilter.All, label: 'Все' },
+  { value: VacancyFilter.New, label: 'Новые' },
+  { value: VacancyFilter.Reviewing, label: 'На рассмотрении' },
+  { value: VacancyFilter.Offer, label: 'Оффер' },
+  { value: VacancyFilter.Hired, label: 'Приняты' },
+  { value: VacancyFilter.Rejected, label: 'Отклонены' },
+];
 
 const Kanban = () => {
-const [active, setActive] = useState<Filter>(Filter.All);
-  const [search, setSearch] = useState('');
-
-  /*const filteredData = jobCardsData.filter((x) => {
-    const matched = x.title.toLowerCase().includes(search.toLowerCase());
-    const selectedFilter = active === Filter.All || x.status.valueOf() === active.valueOf() - 1;
-
-    return matched && selectedFilter;
-  });*/
+  const { data } = useCandidateStore();
+  const [filteredData, setFilteredData] = useState<CandidateData[]>([]);
 
   return (
-    <SafeAreaView edges={{ bottom: 'off', top:'maximum'}} className='className="flex-1 gap-2 p-5"'>
+    <SafeAreaView edges={{ bottom: 'off', top: 'maximum' }} className='className="flex-1 gap-2 p-5'>
       <Text variant={'h3'} className="text-center">
-        Candidate list
+        Список кандидатов
       </Text>
-      <Input
-        value={search}
-        onChangeText={(e) => setSearch(e)}
-        className="h-12"
-        inputMode="search"
-        placeholder="Search"></Input>
 
-      <View className="flex-row justify-between">
-        <Button
-          onPress={() => setActive(Filter.All)}
-          variant={active === Filter.All ? 'default' : 'outline'}>
-          <Text>All</Text>
-        </Button>
-        <Button
-          onPress={() => setActive(Filter.New)}
-          variant={active === Filter.New ? 'default' : 'outline'}>
-          <Text>New</Text>
-        </Button>
-        <Button
-          onPress={() => setActive(Filter.Reviewing)}
-          variant={active === Filter.Reviewing ? 'default' : 'outline'}>
-          <Text>Reviewing</Text>
-        </Button>
-        <Button
-          onPress={() => setActive(Filter.Offer)}
-          variant={active === Filter.Offer ? 'default' : 'outline'}>
-          <Text>Offer</Text>
-        </Button>
-        <Button
-          onPress={() => setActive(Filter.Hired)}
-          variant={active === Filter.Hired ? 'default' : 'outline'}>
-          <Text>Hired</Text>
-        </Button>
-        <Button
-          onPress={() => setActive(Filter.Rejected)}
-          variant={active === Filter.Rejected ? 'default' : 'outline'}>
-          <Text>Rejected</Text>
-        </Button>
-      </View>
+      <Filter
+        data={data}
+        filterOptions={filterOptions}
+        searchKey="name"
+        statusKey="status"
+        onFilteredDataChange={setFilteredData}
+      />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Kanban
+export default Kanban;

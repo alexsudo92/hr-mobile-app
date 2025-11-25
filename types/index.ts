@@ -2,14 +2,14 @@ export type Pages = {
   index: undefined;
   signin: undefined;
   signup: undefined;
-  viewer: JobData;
-  editor: JobData;
+  jobViewer: {id: string}
+  jobEditor: {id: string}
 };
 
 export enum JobStatus {
   Open,
   Closed,
-  OnHold,
+  OnHold
 }
 
 export enum CandidateStatus {
@@ -17,17 +17,23 @@ export enum CandidateStatus {
   Reviewing,
   Offer,
   Hired,
-  Rejected,
+  Rejected
 }
 
 export enum EmploymentStatus {
   FullTime,
   Remote,
   PartTime,
-  Internship,
+  Internship
+}
+
+export enum Roles {
+  Hr,
+  BranchHead
 }
 
 export type JobData = {
+  id: string;
   name: string;
   startSalary: number;
   endSalary: number;
@@ -35,6 +41,7 @@ export type JobData = {
   education: string;
   employment: EmploymentStatus;
   workHours: number;
+  location: string;
   branch: string;
   tags: string[];
   postDate: Date;
@@ -43,7 +50,16 @@ export type JobData = {
   requirements: string[];
 };
 
+export type UserData = {
+  firstname: string;
+  secondname: string;
+  role: Roles;
+  avatarUrl: string;
+  token: string;
+}
+
 export type CandidateData = {
+  id: string;
   name: string;
   salary: number;
   status: CandidateStatus;
@@ -52,6 +68,12 @@ export type CandidateData = {
   workplacesDates: Date[];
   education: string;
   experience: number;
-  emplyoment: EmploymentStatus;
+  employment: EmploymentStatus;
   workHours: number;
+  respondDate: Date;
+  jobId: string;
 };
+
+export type Interaction = {
+  candidateId: string;
+}

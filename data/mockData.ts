@@ -1,7 +1,16 @@
-import { EmploymentStatus, JobData, JobStatus } from "@/types";
+import { CandidateData, CandidateStatus, EmploymentStatus, JobData, JobStatus, Roles, UserData } from "@/types";
+
+export const userData: UserData = {
+  firstname: "Анна",
+  secondname: "Иванова",
+  role: Roles.Hr,
+  avatarUrl: "https://github.com/mrzachnugent.png",
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMzQ1LCJyb2xlIjoiSHIifQ.abc123def456"
+};
 
 export const jobData: JobData[] = [
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac1",
     name: "Frontend Developer",
     startSalary: 60000,
     endSalary: 90000,
@@ -19,9 +28,11 @@ export const jobData: JobData[] = [
       "Знание TypeScript",
       "Понимание принципов REST API",
       "Опыт работы с системой контроля версий Git"
-    ]
+    ],
+    location: "Москва"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac2",
     name: "Backend Developer",
     startSalary: 70000,
     endSalary: 110000,
@@ -39,9 +50,11 @@ export const jobData: JobData[] = [
       "Знание реляционных баз данных",
       "Опыт работы с Docker",
       "Понимание принципов микросервисной архитектуры"
-    ]
+    ],
+    location: "Санкт-Петербург"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac3",
     name: "Маркетинг менеджер",
     startSalary: 45000,
     endSalary: 65000,
@@ -59,9 +72,11 @@ export const jobData: JobData[] = [
       "Знание инструментов аналитики",
       "Навыки работы с социальными сетями",
       "Опыт разработки маркетинговых кампаний"
-    ]
+    ],
+    location: "Новосибирск"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac4",
     name: "Стажер в отдел разработки",
     startSalary: 25000,
     endSalary: 30000,
@@ -79,9 +94,11 @@ export const jobData: JobData[] = [
       "Желание обучаться и развиваться",
       "Наличие портфолио с учебными проектами",
       "Готовность работать в команде"
-    ]
+    ],
+    location: "Екатеринбург"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac5",
     name: "Бухгалтер (неполный день)",
     startSalary: 35000,
     endSalary: 45000,
@@ -99,9 +116,11 @@ export const jobData: JobData[] = [
       "Знание 1С:Бухгалтерия",
       "Понимание налогового законодательства",
       "Внимательность к деталям"
-    ]
+    ],
+    location: "Казань"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac6",
     name: "DevOps инженер",
     startSalary: 90000,
     endSalary: 140000,
@@ -119,9 +138,11 @@ export const jobData: JobData[] = [
       "Знание контейнеризации и оркестрации",
       "Опыт настройки CI/CD",
       "Знание инструментов инфраструктуры как код"
-    ]
+    ],
+    location: "Москва"
   },
   {
+    id: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac7",
     name: "UI/UX дизайнер",
     startSalary: 50000,
     endSalary: 80000,
@@ -139,6 +160,160 @@ export const jobData: JobData[] = [
       "Портфолио с реализованными проектами",
       "Знание Figma и Adobe Creative Suite",
       "Понимание принципов юзабилити"
-    ]
+    ],
+    location: "Санкт-Петербург"
+  }
+];
+
+export const candidateData: CandidateData[] = [
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123451",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac1",
+    name: "Иван Петров",
+    salary: 85000,
+    status: CandidateStatus.New,
+    skills: ["JavaScript", "React", "TypeScript", "Redux", "HTML", "CSS"],
+    workplaces: ["Яндекс", "Ozon", "VK"],
+    workplacesDates: [new Date("2020-03-01"), new Date("2021-06-15"), new Date("2023-01-10")],
+    education: "МГТУ им. Баумана, Факультет информатики",
+    experience: 4,
+    employment: EmploymentStatus.FullTime,
+    workHours: 40,
+    respondDate: new Date("2024-01-20")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123452",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac2",
+    name: "Анна Сидорова",
+    salary: 120000,
+    status: CandidateStatus.Reviewing,
+    skills: ["Python", "Django", "PostgreSQL", "Docker", "AWS", "Kubernetes"],
+    workplaces: ["Сбер", "Тинькофф"],
+    workplacesDates: [new Date("2019-09-01"), new Date("2022-11-01")],
+    education: "МГУ, Факультет вычислительной математики и кибернетики",
+    experience: 5,
+    employment: EmploymentStatus.Remote,
+    workHours: 35,
+    respondDate: new Date("2024-01-18")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123453",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac4",
+    name: "Петр Иванов",
+    salary: 30000,
+    status: CandidateStatus.New,
+    skills: ["Java", "Spring", "MySQL", "Git"],
+    workplaces: ["СТС"],
+    workplacesDates: [new Date("2023-07-01")],
+    education: "Студент МИРЭА, Факультет информационных технологий",
+    experience: 1,
+    employment: EmploymentStatus.Internship,
+    workHours: 20,
+    respondDate: new Date("2024-01-22")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123454",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac7",
+    name: "Мария Козлова",
+    salary: 55000,
+    status: CandidateStatus.Offer,
+    skills: ["Figma", "Adobe XD", "Sketch", "UI/UX", "Прототипирование"],
+    workplaces: ["Яндекс", "Rambler"],
+    workplacesDates: [new Date("2021-02-01"), new Date("2023-03-15")],
+    education: "Британская высшая школа дизайна",
+    experience: 3,
+    employment: EmploymentStatus.FullTime,
+    workHours: 40,
+    respondDate: new Date("2024-01-15")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123455",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac6",
+    name: "Алексей Смирнов",
+    salary: 95000,
+    status: CandidateStatus.Hired,
+    skills: ["Node.js", "Express", "MongoDB", "Redis", "RabbitMQ"],
+    workplaces: ["Mail.ru", "Avito"],
+    workplacesDates: [new Date("2020-01-10"), new Date("2022-08-20")],
+    education: "СПбГУ, Математико-механический факультет",
+    experience: 4,
+    employment: EmploymentStatus.FullTime,
+    workHours: 40,
+    respondDate: new Date("2024-01-10")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123456",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac3",
+    name: "Елена Новикова",
+    salary: 40000,
+    status: CandidateStatus.Rejected,
+    skills: ["SMM", "Google Analytics", "Meta Ads", "Контент-маркетинг"],
+    workplaces: ["МТС", "Билайн"],
+    workplacesDates: [new Date("2022-01-15"), new Date("2023-12-01")],
+    education: "НИУ ВШЭ, Факультет маркетинга",
+    experience: 2,
+    employment: EmploymentStatus.PartTime,
+    workHours: 25,
+    respondDate: new Date("2024-01-12")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123457",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac2",
+    name: "Дмитрий Волков",
+    salary: 110000,
+    status: CandidateStatus.Reviewing,
+    skills: ["React Native", "Flutter", "iOS", "Android", "Firebase"],
+    workplaces: ["Kaspersky", "СберМаркет"],
+    workplacesDates: [new Date("2019-11-01"), new Date("2022-05-01")],
+    education: "МФТИ, Факультет радиотехники и кибернетики",
+    experience: 4,
+    employment: EmploymentStatus.Remote,
+    workHours: 40,
+    respondDate: new Date("2024-01-19")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123458",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac4",
+    name: "Ольга Белова",
+    salary: 28000,
+    status: CandidateStatus.New,
+    skills: ["Python", "Pandas", "SQL", "Excel", "Статистика"],
+    workplaces: ["Росстат"],
+    workplacesDates: [new Date("2023-09-01")],
+    education: "РЭУ им. Плеханова, Факультет экономики",
+    experience: 0,
+    employment: EmploymentStatus.Internship,
+    workHours: 15,
+    respondDate: new Date("2024-01-21")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123459",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac5",
+    name: "Сергей Кузнецов",
+    salary: 40000,
+    status: CandidateStatus.Reviewing,
+    skills: ["1С", "Бухгалтерия", "Налоговый учет", "Отчетность"],
+    workplaces: ["ПАО Газпром"],
+    workplacesDates: [new Date("2021-04-01")],
+    education: "Финансовый университет при Правительстве РФ",
+    experience: 3,
+    employment: EmploymentStatus.PartTime,
+    workHours: 20,
+    respondDate: new Date("2024-01-17")
+  },
+  {
+    id: "018e8f3a-f7b1-7c45-9a12-34d6c8123460",
+    jobId: "018e8f3a-f7a8-7a34-8a33-51c5c7541ac1",
+    name: "Алина Попова",
+    salary: 75000,
+    status: CandidateStatus.New,
+    skills: ["Vue.js", "JavaScript", "Nuxt", "Vuex", "SASS"],
+    workplaces: ["Тинькофф"],
+    workplacesDates: [new Date("2022-02-01")],
+    education: "НИУ ВШЭ, Факультет компьютерных наук",
+    experience: 2,
+    employment: EmploymentStatus.FullTime,
+    workHours: 40,
+    respondDate: new Date("2024-01-23")
   }
 ];

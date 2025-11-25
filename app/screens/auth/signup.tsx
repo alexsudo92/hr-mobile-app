@@ -6,13 +6,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = () => {
   return (
-    <SafeAreaView className="p-5 items-center flex-1 gap-5">
-      <Text className='text-lg text-center mb-5'>Sign up with your email and phone number</Text>
+    <SafeAreaView className="p-5 items-center mt-10 gap-5">
+      <Text className='text-lg text-center'>Зарегистрируйте свой аккаунт</Text>
       <Input
         keyboardType="default"
         textContentType="name"
         autoComplete="name"
-        placeholder="Full name"
+        placeholder="Имя"
+      />
+      <Input
+        keyboardType="default"
+        textContentType="name"
+        autoComplete="name"
+        placeholder="Фамилия"
       />
       <Input
         keyboardType="email-address"
@@ -24,11 +30,11 @@ const SignUp = () => {
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
         autoComplete="tel"
-        placeholder="Phone number"
+        placeholder="Номер телефона"
         
       />
       <Button>
-        <Text>Sign up</Text>
+        <Text>Регистрация</Text>
       </Button>
     </SafeAreaView>
   );

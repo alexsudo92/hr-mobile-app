@@ -1,7 +1,10 @@
+import { userData } from '@/data/mockData';
+import { UserData } from '@/types';
 import { create } from 'zustand'
 
 type State = {
-  isSignedIn: boolean
+  isSignedIn: boolean;
+  userData: UserData;
 }
 
 type Action = {
@@ -10,7 +13,8 @@ type Action = {
 }
 
 const useAuthStore = create<State & Action>((set) => ({
-  isSignedIn: false,
+  isSignedIn: true,
+  userData: userData,
   signIn: () => set(() => ({isSignedIn: true})),
   logOut: () => set(() => ({isSignedIn: false}))
 }))
