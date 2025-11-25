@@ -1,9 +1,9 @@
 import { View } from 'react-native';
 import React from 'react';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { Icon } from '@/components/ui/icon';
+import { Avatar, AvatarImage } from '@/ui/avatar';
+import { Button } from '@/ui/button';
+import { Text } from '@/ui/text';
+import { Icon } from '@/ui/icon';
 import {
   ArrowRight,
   Bell,

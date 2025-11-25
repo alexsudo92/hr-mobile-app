@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from '@/app/screens/tabs/home';
-import { Icon } from '@/components/ui/icon';
+import { Icon } from '@/ui/icon';
 import ProfilePage from './profile';
 import KanbanPage from './kanban';
 import { Home, LucideIcon, Notebook, User } from 'lucide-react-native';

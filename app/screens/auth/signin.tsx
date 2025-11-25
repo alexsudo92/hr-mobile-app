@@ -1,8 +1,8 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Text } from '@/ui/text';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
 import {useAuthStore} from '@/stores';
 
 const SignIn = () => {

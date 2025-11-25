@@ -1,6 +1,6 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Text } from '@/components/ui/text';
-import { Icon } from '@/components/ui/icon';
+import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
+import { Text } from '@/ui/text';
+import { Icon } from '@/ui/icon';
 import { EmploymentStatus, JobData, JobStatus, Pages } from '@/types';
 import React from 'react';
 import { View } from 'react-native';
@@ -9,8 +9,8 @@ import {
   Briefcase,
   Building,
 } from 'lucide-react-native';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
+import { Separator } from '@/ui/separator';
+import { Button } from '@/ui/button';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import JobState from './JobState';

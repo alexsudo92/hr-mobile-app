@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from '@/components/ui/text';
+import { Text } from '@/ui/text';
 import Filter, { FilterOption } from '@/app/components/Filter';
 import { CandidateData } from '@/types';
 import { useCandidateStore } from '@/stores';

@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { JobStatus } from '@/types';
 import { CircleCheckBig, CircleX, LoaderCircle } from 'lucide-react-native';
-import { Icon } from '@/components/ui/icon';
+import { Icon } from '@/ui/icon';
 
 
 interface JobStatusProps {

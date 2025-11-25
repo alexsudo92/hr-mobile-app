@@ -1,19 +1,21 @@
 import { ScrollView, View } from 'react-native';
 import React from 'react';
 import { JobData } from '@/types';
-import { Text } from '@/components/ui/text';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
+import { Text } from '@/ui/text';
+import { Card, CardHeader, CardContent, CardFooter } from '@/ui/card';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Icon } from '@/components/ui/icon';
+import { Icon } from '@/ui/icon';
 import { Building, Edit, MapPin } from 'lucide-react-native';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@/ui/separator';
 import { useJobStore } from '@/stores';
+import JobState from '@/app/components/JobState';
 
 const Viewer = ({ route }: any) => {
   const { getData } = useJobStore();
 
   const {
     name,
+    status,
     startSalary,
     endSalary,
     description,
@@ -31,7 +33,10 @@ const Viewer = ({ route }: any) => {
         <Card>
           <CardHeader className="flex flex-row">
             <View className="flex-1">
-              <Text className="text-2xl font-semibold">{name}</Text>
+              <Text className="text-2xl font-semibold">
+                {name}
+                <JobState status={status} />
+              </Text>
               <Text className="text-lg font-medium text-green-600">
                 {startSalary} ₽ — {endSalary} ₽
               </Text>
@@ -89,7 +94,9 @@ const Viewer = ({ route }: any) => {
           </CardContent>
         </Card>
         <Card>
-            
+          <CardHeader>
+            <Text className="text-lg font-semibold">Рабочий график</Text>
+          </CardHeader>
         </Card>
       </ScrollView>
     </SafeAreaView>

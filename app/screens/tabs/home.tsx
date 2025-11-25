@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useJobStore } from '@/stores';
 import { JobData } from '@/types';
 import Filter, { FilterOption } from '@/app/components/Filter';
-import { Text } from '@/components/ui/text';
+import { Text } from '@/ui/text';
 
 enum JobFilter {
   All,

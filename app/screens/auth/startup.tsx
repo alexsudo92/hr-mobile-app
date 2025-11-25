@@ -6,9 +6,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Pages } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { Icon } from '@/components/ui/icon';
+import { Button } from '@/ui/button';
+import { Text } from '@/ui/text';
+import { Icon } from '@/ui/icon';
 
 type NavigationProp = NativeStackNavigationProp<Pages>;
 

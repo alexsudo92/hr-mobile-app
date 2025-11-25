@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/ui/button';
+import { Text } from '@/ui/text';
+import { Input } from '@/ui/input';
 
 export interface FilterOption<T> {
   value: T;
