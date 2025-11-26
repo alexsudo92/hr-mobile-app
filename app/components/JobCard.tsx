@@ -1,11 +1,11 @@
 import { EmploymentStatus, JobStatus, NavigationProp } from '@/types';
-import { Button, Card, CardContent, CardFooter, CardHeader, Icon, Separator, Text } from '@/ui';
+import { Button } from '@/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
+import { Icon } from '@/ui/icon';
+import { Separator } from '@/ui/separator';
+import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
-import {
-  Briefcase,
-  Building,
-  MapPin,
-} from 'lucide-react-native';
+import { Briefcase, Building, MapPin } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import JobState from './JobState';
@@ -83,10 +83,10 @@ const JobCard = ({
 
       <CardContent>
         <View className="flex-row justify-center gap-1">
-          <Button onPress={() => navigation.navigate('jobViewer', {id})} className="w-1/2">
+          <Button onPress={() => navigation.navigate('jobViewer', { id })} className="w-1/2">
             <Text>Просмотр</Text>
           </Button>
-          <Button onPress={() => navigation.navigate('jobEditor', {id})} className="w-1/2">
+          <Button onPress={() => navigation.navigate('jobEditor', { id })} className="w-1/2">
             <Text>Управление</Text>
           </Button>
         </View>

@@ -5,7 +5,9 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { NavigationProp } from '@/types';
-import { Button, Icon, Text } from '@/ui';
+import { Button } from '@/ui/button';
+import { Icon } from '@/ui/icon';
+import { Text } from '@/ui/text';
 
 const Startup = () => {
   const navigation = useNavigation<NavigationProp>();

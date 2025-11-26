@@ -1,6 +1,6 @@
+import { jobData } from '@/data/mockData';
 import { JobData } from '@/types';
 import { create } from 'zustand';
-import { jobData } from '@/data/mockData';
 
 type State = {
   data: JobData[];

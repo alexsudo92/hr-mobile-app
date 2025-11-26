@@ -6,12 +6,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PortalHost } from '@rn-primitives/portal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import IndexScreen from './screens/tabs/_layout';
 import SignInScreen from './screens/auth/signin';
 import SignUpScreen from './screens/auth/signup';
 import StartScreen from './screens/auth/startup';
-import JobViewerScreen from './screens/jobs/viewer';
 import JobEditorScreen from './screens/jobs/editor';
+import JobViewerScreen from './screens/jobs/viewer';
+import IndexScreen from './screens/tabs/_layout';
 
 import useAuthStore from '@/stores/authStore';
 
@@ -32,7 +32,8 @@ export default function RootLayout() {
                 component={JobViewerScreen}
                 options={{
                   headerTitle: 'Просмотр вакансии',
-                  headerTitleAlign: 'center'
+                  headerTitleAlign: 'center',
+                  contentStyle: { flex: 1 },
                 }}
               />
               <Stack.Screen
@@ -40,7 +41,8 @@ export default function RootLayout() {
                 component={JobEditorScreen}
                 options={{
                   headerTitle: 'Редактирование вакансии',
-                  headerTitleAlign: 'center'
+                  headerTitleAlign: 'center',
+                  contentStyle: { flex: 1 },
                 }}
               />
             </Stack.Group>
@@ -50,12 +52,20 @@ export default function RootLayout() {
               <Stack.Screen
                 name="signin"
                 component={SignInScreen}
-                options={{ headerShown: true, headerTitle: 'Авторизация', headerTitleAlign: 'center' }}
+                options={{
+                  headerShown: true,
+                  headerTitle: 'Авторизация',
+                  headerTitleAlign: 'center',
+                }}
               />
               <Stack.Screen
                 name="signup"
                 component={SignUpScreen}
-                options={{ headerShown: true, headerTitle: 'Регистрация', headerTitleAlign: 'center' }}
+                options={{
+                  headerShown: true,
+                  headerTitle: 'Регистрация',
+                  headerTitleAlign: 'center',
+                }}
               />
             </Stack.Group>
           )}

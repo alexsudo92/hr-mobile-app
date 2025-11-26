@@ -1,5 +1,5 @@
 import HomePage from '@/app/screens/tabs/home';
-import { Icon } from '@/ui';
+import { Icon } from '@/ui/icon';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, LucideIcon, Notebook, User } from 'lucide-react-native';
 import React from 'react';
@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 interface TabIconProps {
   focused: boolean;
   icon: LucideIcon;
-};
+}
 
 const TabIcon = ({ focused, icon }: TabIconProps) => (
   <View className="mt-1 flex-1 flex-col items-center justify-center">
@@ -20,7 +20,7 @@ const TabIcon = ({ focused, icon }: TabIconProps) => (
   </View>
 );
 
-function _layout() {
+function TabLayout() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -38,7 +38,6 @@ function _layout() {
         name="kanban"
         options={{
           tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={Notebook} />,
-          
         }}
         component={KanbanPage}
       />
@@ -49,9 +48,8 @@ function _layout() {
         }}
         component={ProfilePage}
       />
-      
     </Tab.Navigator>
   );
 }
 
-export default _layout;
+export default TabLayout;

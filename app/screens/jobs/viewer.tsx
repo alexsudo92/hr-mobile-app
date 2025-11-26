@@ -1,7 +1,10 @@
 import JobState from '@/app/components/JobState';
 import { useJobStore } from '@/stores';
 import { EmploymentStatus, JobData, NavigationProp } from '@/types';
-import { Card, CardContent, CardHeader, Icon, Separator, Text } from '@/ui';
+import { Card, CardContent, CardHeader } from '@/ui/card';
+import { Icon } from '@/ui/icon';
+import { Separator } from '@/ui/separator';
+import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
 import { Briefcase, Building, Clock, Edit, MapPin } from 'lucide-react-native';
 import React from 'react';
@@ -44,9 +47,20 @@ const Viewer = ({ route }: any) => {
     workHours,
     tags,
   }: JobData = getJob(route.params.id);
-
+  <TouchableOpacity
+    onPress={() => navigation.navigate('jobEditor', { id })}
+    className="w-fit self-center">
+    <Icon as={Edit} size={40} />
+  </TouchableOpacity>;
   return (
     <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
+      <TouchableOpacity
+        className="absolute left-[90%] top-[90%] z-10"
+        onPress={() => navigation.navigate('jobEditor', { id })}>
+        <View className="size-14 items-center justify-center rounded-full bg-amber-700 shadow-md">
+          <Icon size={35} className="color-white" as={Edit} />
+        </View>
+      </TouchableOpacity>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-2">
         <Card>
           <CardHeader className="flex flex-row">
@@ -59,11 +73,6 @@ const Viewer = ({ route }: any) => {
                 {startSalary} ₽ — {endSalary} ₽
               </Text>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('jobEditor', { id })}
-              className="w-fit self-center">
-              <Icon as={Edit} size={40} />
-            </TouchableOpacity>
           </CardHeader>
         </Card>
         <Card>

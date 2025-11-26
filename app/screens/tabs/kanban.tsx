@@ -1,7 +1,7 @@
 import Filter, { FilterOption } from '@/app/components/Filter';
 import { useCandidateStore } from '@/stores';
 import { CandidateData } from '@/types';
-import { Text } from '@/ui';
+import { Text } from '@/ui/text';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

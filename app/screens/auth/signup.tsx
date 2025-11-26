@@ -1,17 +1,14 @@
-import { Button, Input, Text } from '@/ui';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Text } from '@/ui/text';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = () => {
   return (
-    <SafeAreaView className="p-5 items-center mt-10 gap-5">
-      <Text className='text-lg text-center'>Зарегистрируйте свой аккаунт</Text>
-      <Input
-        keyboardType="default"
-        textContentType="name"
-        autoComplete="name"
-        placeholder="Имя"
-      />
+    <SafeAreaView className="mt-10 items-center gap-5 p-5">
+      <Text className="text-center text-lg">Зарегистрируйте свой аккаунт</Text>
+      <Input keyboardType="default" textContentType="name" autoComplete="name" placeholder="Имя" />
       <Input
         keyboardType="default"
         textContentType="name"
@@ -29,7 +26,6 @@ const SignUp = () => {
         textContentType="telephoneNumber"
         autoComplete="tel"
         placeholder="Номер телефона"
-        
       />
       <Button>
         <Text>Регистрация</Text>

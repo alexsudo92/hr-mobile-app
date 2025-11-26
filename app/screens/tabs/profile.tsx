@@ -1,6 +1,9 @@
 import { useAuthStore } from '@/stores';
 import { Roles } from '@/types';
-import { Avatar, AvatarImage, Button, Icon, Text } from '@/ui';
+import { Avatar, AvatarImage } from '@/ui/avatar';
+import { Button } from '@/ui/button';
+import { Icon } from '@/ui/icon';
+import { Text } from '@/ui/text';
 import {
   ArrowRight,
   Bell,
@@ -25,7 +28,7 @@ const Profile = () => {
   };
 
   const role = () => {
-    switch (userData.role){
+    switch (userData.role) {
       case Roles.Hr:
         return 'HR';
       case Roles.BranchHead:
@@ -33,16 +36,18 @@ const Profile = () => {
       default:
         throw new Error('wrong role');
     }
-  }
+  };
 
   return (
-    <SafeAreaView edges={{ bottom: 'off', top:'maximum'}} className="flex-1 p-5">
+    <SafeAreaView edges={{ bottom: 'off', top: 'maximum' }} className="flex-1 p-5">
       <View className="flex-3 items-center">
         <Text className="justify-center text-3xl font-bold">Профиль</Text>
         <Avatar alt="@mrzachnugent" className="mt-5 h-32 w-32 border-background">
           <AvatarImage source={{ uri: userData.avatarUrl, cache: 'reload' }} />
         </Avatar>
-        <Text className="mt-5 text-2xl font-bold">{userData.firstname} {userData.secondname}</Text>
+        <Text className="mt-5 text-2xl font-bold">
+          {userData.firstname} {userData.secondname}
+        </Text>
         <Text className="mt-1 text-xl font-thin">{role()}</Text>
       </View>
 

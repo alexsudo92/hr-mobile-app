@@ -1,32 +1,18 @@
 import JobState from '@/app/components/JobState';
 import { useJobStore } from '@/stores';
 import { EmploymentStatus, JobData, NavigationProp } from '@/types';
-import { Button, Card, CardContent, CardHeader, Icon, Input, Separator, Text, Textarea } from '@/ui';
+import { Button } from '@/ui/button';
+import { Card, CardContent, CardHeader } from '@/ui/card';
+import { Icon } from '@/ui/icon';
+import { Input } from '@/ui/input';
+import { Separator } from '@/ui/separator';
+import { Text } from '@/ui/text';
+import { Textarea } from '@/ui/textarea';
 import { useNavigation } from '@react-navigation/native';
 import { Building, Clock, MapPin, Plus, Save, X } from 'lucide-react-native';
 import React, { useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-const employmentText = (employment: EmploymentStatus) => {
-  switch (employment) {
-    case EmploymentStatus.FullTime:
-      return 'Полный рабочий день';
-    case EmploymentStatus.Internship:
-      return 'Стажировка';
-    case EmploymentStatus.Remote:
-      return 'Удаленная работа';
-    case EmploymentStatus.PartTime:
-      return 'Неполный рабочий день';
-    default:
-      throw new Error('wrong status');
-  }
-};
 
 const Editor = ({ route }: any) => {
   const { getJob, setJob } = useJobStore();
@@ -107,10 +93,10 @@ const Editor = ({ route }: any) => {
   };
 
   return (
-    <KeyboardAvoidingView keyboardVerticalOffset={40} behavior={'padding'} className="flex-1">
+    <KeyboardAvoidingView keyboardVerticalOffset={40} behavior={'padding'}>
       <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
         <TouchableOpacity className="absolute left-[90%] top-[90%] z-10" onPress={handleSave}>
-          <View className="size-14 items-center justify-center rounded-full bg-black">
+          <View className="size-14 items-center justify-center rounded-full bg-blue-700 shadow-md">
             <Icon size={35} className="color-white" as={Save} />
           </View>
         </TouchableOpacity>
@@ -231,17 +217,17 @@ const Editor = ({ route }: any) => {
               />
               {requirements.map((requirement, index) => (
                 <View key={index} className="flex-row items-center gap-2">
+                  <TouchableOpacity onPress={() => removeRequirement(index)}>
+                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
+                      <Icon size={16} className="color-red-600" as={X} />
+                    </View>
+                  </TouchableOpacity>
                   <Input
                     value={requirement}
                     onChangeText={(value) => updateRequirement(index, value)}
                     className="flex-1 text-sm"
                     placeholder={`Требование ${index + 1}`}
                   />
-                  <TouchableOpacity onPress={() => removeRequirement(index)}>
-                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
-                      <Icon size={16} className="color-red-600" as={X} />
-                    </View>
-                  </TouchableOpacity>
                 </View>
               ))}
             </CardContent>
@@ -309,17 +295,17 @@ const Editor = ({ route }: any) => {
             <CardContent className="gap-2">
               {tags.map((tag, index) => (
                 <View key={index} className="flex-row items-center gap-2">
+                  <TouchableOpacity onPress={() => removeTag(index)}>
+                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
+                      <Icon size={16} className="color-red-600" as={X} />
+                    </View>
+                  </TouchableOpacity>
                   <Input
                     value={tag}
                     onChangeText={(value) => updateTag(index, value)}
                     placeholder="Тэг"
                     className="flex-1 text-sm"
                   />
-                  <TouchableOpacity onPress={() => removeTag(index)}>
-                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
-                      <Icon size={16} className="color-red-600" as={X} />
-                    </View>
-                  </TouchableOpacity>
                 </View>
               ))}
             </CardContent>

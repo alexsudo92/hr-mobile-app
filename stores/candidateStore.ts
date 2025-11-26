@@ -1,6 +1,6 @@
-import { CandidateData } from '@/types'
-import { create } from 'zustand'
 import { candidateData } from '@/data/mockData';
+import { CandidateData } from '@/types';
+import { create } from 'zustand';
 
 type State = {
   data: CandidateData[]

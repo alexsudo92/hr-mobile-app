@@ -2,7 +2,7 @@ import Filter, { FilterOption } from '@/app/components/Filter';
 import JobCard from '@/app/components/JobCard';
 import { useJobStore } from '@/stores';
 import { JobData } from '@/types';
-import { Text } from '@/ui';
+import { Text } from '@/ui/text';
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

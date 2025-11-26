@@ -1,5 +1,7 @@
 import { useAuthStore } from '@/stores';
-import { Button, Input, Text } from '@/ui';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Text } from '@/ui/text';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,9 +13,9 @@ const SignIn = () => {
 
     signIn(true);
   };
-  
+
   return (
-    <SafeAreaView className="items-center mt-10 gap-5 p-5">
+    <SafeAreaView className="mt-10 items-center gap-5 p-5">
       <Text className="text-center text-lg">Войдите с помощью электронной почты</Text>
       <Input
         keyboardType="email-address"

@@ -1,4 +1,6 @@
-import { Button, Input, Text } from '@/ui';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Text } from '@/ui/text';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
