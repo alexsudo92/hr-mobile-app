@@ -1,5 +1,5 @@
 import { FlatList, ScrollView, View } from 'react-native';
-import React, { act, useState } from 'react';
+import React, { useState } from 'react';
 import JobCard from '@/app/components/JobCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useJobStore } from '@/stores';
@@ -18,7 +18,7 @@ const filterOptions: FilterOption<JobFilter>[] = [
   { value: JobFilter.All, label: 'Все' },
   { value: JobFilter.Open, label: 'Открытые' },
   { value: JobFilter.Closed, label: 'Закрытые' },
-  { value: JobFilter.OnHold, label: 'Согласуются' },
+  { value: JobFilter.OnHold, label: 'На согласовании' },
 ];
 
 const Home = () => {

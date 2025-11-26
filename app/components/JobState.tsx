@@ -3,13 +3,15 @@ import React from 'react'
 import { JobStatus } from '@/types';
 import { CircleCheckBig, CircleX, LoaderCircle } from 'lucide-react-native';
 import { Icon } from '@/ui/icon';
+import { cn } from '@/lib/utils';
 
 
 interface JobStatusProps {
   status: JobStatus;
+  className?: string | undefined;
 }
 
-const JobState = ({status}: JobStatusProps) => {
+const JobState = ({className, status}: JobStatusProps) => {
   const color = () => {
     switch (status) {
       case JobStatus.Open:
@@ -50,7 +52,7 @@ const JobState = ({status}: JobStatusProps) => {
   };
 
   return (
-    <View className={color() + ' w-fit flex-row items-center gap-1 rounded-xl px-1 py-1'}>
+    <View className={cn(color(), 'w-fit flex-row items-center gap-1 rounded-xl px-1 py-1', className)}>
       <Icon as={icon()} size={15} className="text-white" />
       <Text className="text-xs text-white">{text()}</Text>
     </View>

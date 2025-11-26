@@ -39,7 +39,7 @@ export default function RootLayout() {
                 name="jobEditor"
                 component={JobEditorScreen}
                 options={{
-                  headerTitle: 'Просмотр кандидата',
+                  headerTitle: 'Редактирование вакансии',
                   headerTitleAlign: 'center'
                 }}
               />
