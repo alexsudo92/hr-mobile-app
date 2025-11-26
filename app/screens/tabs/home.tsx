@@ -1,11 +1,11 @@
-import { FlatList, ScrollView, View } from 'react-native';
-import React, { useState } from 'react';
+import Filter, { FilterOption } from '@/app/components/Filter';
 import JobCard from '@/app/components/JobCard';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useJobStore } from '@/stores';
 import { JobData } from '@/types';
-import Filter, { FilterOption } from '@/app/components/Filter';
-import { Text } from '@/ui/text';
+import { Text } from '@/ui';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 enum JobFilter {
   All,

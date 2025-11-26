@@ -1,14 +1,12 @@
-import { ScrollView, View } from 'react-native';
-import React from 'react';
-import { EmploymentStatus, JobData } from '@/types';
-import { Text } from '@/ui/text';
-import { Card, CardHeader, CardContent, CardFooter } from '@/ui/card';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Icon } from '@/ui/icon';
-import { Briefcase, Building, Clock, Edit, MapPin, Timer } from 'lucide-react-native';
-import { Separator } from '@/ui/separator';
-import { useJobStore } from '@/stores';
 import JobState from '@/app/components/JobState';
+import { useJobStore } from '@/stores';
+import { EmploymentStatus, JobData, NavigationProp } from '@/types';
+import { Card, CardContent, CardHeader, Icon, Separator, Text } from '@/ui';
+import { useNavigation } from '@react-navigation/native';
+import { Briefcase, Building, Clock, Edit, MapPin } from 'lucide-react-native';
+import React from 'react';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const employmentText = (employment: EmploymentStatus) => {
   switch (employment) {
@@ -27,8 +25,10 @@ const employmentText = (employment: EmploymentStatus) => {
 
 const Viewer = ({ route }: any) => {
   const { getJob } = useJobStore();
+  const navigation = useNavigation<NavigationProp>();
 
   const {
+    id,
     name,
     status,
     startSalary,
@@ -59,7 +59,11 @@ const Viewer = ({ route }: any) => {
                 {startSalary} ₽ — {endSalary} ₽
               </Text>
             </View>
-            <Icon className="w-fit self-center" as={Edit} size={35} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('jobEditor', { id })}
+              className="w-fit self-center">
+              <Icon as={Edit} size={40} />
+            </TouchableOpacity>
           </CardHeader>
         </Card>
         <Card>

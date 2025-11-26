@@ -1,3 +1,5 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
 export type Pages = {
   index: undefined;
   signin: undefined;
@@ -5,6 +7,8 @@ export type Pages = {
   jobViewer: {id: string}
   jobEditor: {id: string}
 };
+
+export type NavigationProp = NativeStackNavigationProp<Pages>;
 
 export enum JobStatus {
   Open,

@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { JobStatus } from '@/types';
-import { CircleCheckBig, CircleX, LoaderCircle } from 'lucide-react-native';
-import { Icon } from '@/ui/icon';
 import { cn } from '@/lib/utils';
+import { JobStatus } from '@/types';
+import { Icon } from '@/ui';
+import { CircleCheckBig, CircleX, LoaderCircle } from 'lucide-react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 
 
 interface JobStatusProps {

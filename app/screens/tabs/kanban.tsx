@@ -1,9 +1,9 @@
+import Filter, { FilterOption } from '@/app/components/Filter';
+import { useCandidateStore } from '@/stores';
+import { CandidateData } from '@/types';
+import { Text } from '@/ui';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from '@/ui/text';
-import Filter, { FilterOption } from '@/app/components/Filter';
-import { CandidateData } from '@/types';
-import { useCandidateStore } from '@/stores';
 
 enum VacancyFilter {
   All,

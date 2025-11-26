@@ -1,9 +1,7 @@
+import { useAuthStore } from '@/stores';
+import { Button, Input, Text } from '@/ui';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from '@/ui/text';
-import { Button } from '@/ui/button';
-import { Input } from '@/ui/input';
-import {useAuthStore} from '@/stores';
 
 const SignIn = () => {
   const { signIn } = useAuthStore();

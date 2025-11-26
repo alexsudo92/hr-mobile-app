@@ -1,16 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
+import { LogIn } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
-import { LogIn } from 'lucide-react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Pages } from '@/types';
-import { Button } from '@/ui/button';
-import { Text } from '@/ui/text';
-import { Icon } from '@/ui/icon';
-
-type NavigationProp = NativeStackNavigationProp<Pages>;
+import { NavigationProp } from '@/types';
+import { Button, Icon, Text } from '@/ui';
 
 const Startup = () => {
   const navigation = useNavigation<NavigationProp>();

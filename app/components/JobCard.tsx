@@ -1,18 +1,13 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
-import { Text } from '@/ui/text';
-import { Icon } from '@/ui/icon';
-import { EmploymentStatus, JobData, JobStatus, Pages } from '@/types';
-import React from 'react';
-import { View } from 'react-native';
+import { EmploymentStatus, JobStatus, NavigationProp } from '@/types';
+import { Button, Card, CardContent, CardFooter, CardHeader, Icon, Separator, Text } from '@/ui';
+import { useNavigation } from '@react-navigation/native';
 import {
-  MapPin,
   Briefcase,
   Building,
+  MapPin,
 } from 'lucide-react-native';
-import { Separator } from '@/ui/separator';
-import { Button } from '@/ui/button';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import { View } from 'react-native';
 import JobState from './JobState';
 
 interface JobCardProps {
@@ -26,9 +21,6 @@ interface JobCardProps {
   status: JobStatus;
   postDate: Date;
 }
-
-type NavigationProp = NativeStackNavigationProp<Pages>;
-
 
 const JobCard = ({
   id,

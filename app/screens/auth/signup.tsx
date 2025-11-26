@@ -1,6 +1,4 @@
-import { Input } from '@/ui/input';
-import { Button } from '@/ui/button';
-import { Text } from '@/ui/text';
+import { Button, Input, Text } from '@/ui';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

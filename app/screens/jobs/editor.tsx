@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { EmploymentStatus, JobData, Pages } from '@/types';
-import { Text } from '@/ui/text';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useJobStore } from '@/stores';
-import {
-  ScrollView,
-  View,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native';
-import { Card, CardContent, CardHeader } from '@/ui/card';
-import { Separator } from '@/ui/separator';
 import JobState from '@/app/components/JobState';
-import { Icon } from '@/ui/icon';
-import { Briefcase, Building, Clock, Edit, MapPin, Save, Plus, X } from 'lucide-react-native';
-import { Input } from '@/ui/input';
-import { Textarea } from '@/ui/textarea';
+import { useJobStore } from '@/stores';
+import { EmploymentStatus, JobData, NavigationProp } from '@/types';
+import { Button, Card, CardContent, CardHeader, Icon, Input, Separator, Text, Textarea } from '@/ui';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Button } from '@/ui/button';
-
-type NavigationProp = NativeStackNavigationProp<Pages>;
+import { Building, Clock, MapPin, Plus, Save, X } from 'lucide-react-native';
+import React, { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const employmentText = (employment: EmploymentStatus) => {
   switch (employment) {

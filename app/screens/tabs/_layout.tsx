@@ -1,11 +1,11 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from '@/app/screens/tabs/home';
-import { Icon } from '@/ui/icon';
-import ProfilePage from './profile';
-import KanbanPage from './kanban';
+import { Icon } from '@/ui';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, LucideIcon, Notebook, User } from 'lucide-react-native';
+import React from 'react';
 import { View } from 'react-native';
+import KanbanPage from './kanban';
+import ProfilePage from './profile';
 
 const Tab = createBottomTabNavigator();
 

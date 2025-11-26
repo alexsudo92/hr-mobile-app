@@ -1,9 +1,6 @@
-import { View } from 'react-native';
-import React from 'react';
-import { Avatar, AvatarImage } from '@/ui/avatar';
-import { Button } from '@/ui/button';
-import { Text } from '@/ui/text';
-import { Icon } from '@/ui/icon';
+import { useAuthStore } from '@/stores';
+import { Roles } from '@/types';
+import { Avatar, AvatarImage, Button, Icon, Text } from '@/ui';
 import {
   ArrowRight,
   Bell,
@@ -14,9 +11,9 @@ import {
   Shield,
   User,
 } from 'lucide-react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuthStore } from '@/stores';
-import { Roles } from '@/types';
 
 const Profile = () => {
   const { logOut, userData } = useAuthStore();
