@@ -19,6 +19,7 @@ import { Input } from '@/ui/input';
 import { Textarea } from '@/ui/textarea';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Button } from '@/ui/button';
 
 type NavigationProp = NativeStackNavigationProp<Pages>;
 
@@ -263,67 +264,34 @@ const Editor = ({ route }: any) => {
             <Separator />
             <CardContent className="gap-2">
               <View className="gap-2">
-                <TouchableOpacity
+                <Button
+                  variant={employment == EmploymentStatus.FullTime ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.FullTime)}
-                  className={`rounded-lg border py-2 items-center justify-center ${
-                    employment === EmploymentStatus.FullTime
-                      ? 'border-blue-500 bg-blue-100'
-                      : 'border-gray-300 bg-gray-100'
-                  }`}>
-                  <Text
-                    className={`font-medium ${
-                      employment === EmploymentStatus.FullTime ? 'text-blue-700' : 'text-gray-700'
-                    }`}>
-                    Полный день
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
+                  className="items-center justify-center rounded-lg border py-2">
+                  <Text className="font-medium">Полный день</Text>
+                </Button>
+                <Button
+                  variant={employment === EmploymentStatus.Remote ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.Remote)}
-                  className={`rounded-lg border py-2 items-center justify-center ${
-                    employment === EmploymentStatus.Remote
-                      ? 'border-blue-500 bg-blue-100'
-                      : 'border-gray-300 bg-gray-100'
-                  }`}>
-                  <Text
-                    className={`font-medium ${
-                      employment === EmploymentStatus.Remote ? 'text-blue-700' : 'text-gray-700'
-                    }`}>
-                    Удаленно
-                  </Text>
-                </TouchableOpacity>
+                  className="items-center justify-center rounded-lg border py-2">
+                  <Text className="font-medium">Удаленно</Text>
+                </Button>
 
-                <TouchableOpacity
+                <Button
+                  variant={employment === EmploymentStatus.PartTime ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.PartTime)}
-                  className={`rounded-lg border py-2 items-center justify-center ${
-                    employment === EmploymentStatus.PartTime
-                      ? 'border-blue-500 bg-blue-100'
-                      : 'border-gray-300 bg-gray-100'
-                  }`}>
-                  <Text
-                    className={`font-medium ${
-                      employment === EmploymentStatus.PartTime ? 'text-blue-700' : 'text-gray-700'
-                    }`}>
-                    Частичная занятость
-                  </Text>
-                </TouchableOpacity>
+                  className="items-center justify-center rounded-lg border py-2">
+                  <Text className="font-medium">Частичная занятость</Text>
+                </Button>
 
-                <TouchableOpacity
+                <Button
+                  variant={employment === EmploymentStatus.Internship ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.Internship)}
-                  className={`rounded-lg border py-2 items-center justify-center ${
-                    employment === EmploymentStatus.Internship
-                      ? 'border-blue-500 bg-blue-100'
-                      : 'border-gray-300 bg-gray-100'
-                  }`}>
-                  <Text
-                    className={`font-medium ${
-                      employment === EmploymentStatus.Internship ? 'text-blue-700' : 'text-gray-700'
-                    }`}>
-                    Стажировка
-                  </Text>
-                </TouchableOpacity>
+                  className="items-center justify-center rounded-lg border py-2">
+                  <Text className="font-medium">Стажировка</Text>
+                </Button>
               </View>
-              <Separator/>
+              <Separator />
               <View className="flex-row items-center gap-2">
                 <Icon as={Clock} size={20} />
                 <Input
