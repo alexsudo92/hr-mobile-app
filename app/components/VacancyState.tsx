@@ -1,24 +1,24 @@
 import { cn } from '@/lib/utils';
-import { JobStatus } from '@/types';
+import { VacancyStatus } from '@/types';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
 import { CircleCheckBig, CircleX, LoaderCircle } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 
-interface JobStatusProps {
-  status: JobStatus;
+interface VacancyStatusProps {
+  status: VacancyStatus;
   className?: string | undefined;
 }
 
-const JobState = ({ className, status }: JobStatusProps) => {
+const VacancyState = ({ className, status }: VacancyStatusProps) => {
   const color = () => {
     switch (status) {
-      case JobStatus.Open:
+      case VacancyStatus.Open:
         return 'bg-green-500';
-      case JobStatus.Closed:
+      case VacancyStatus.Closed:
         return 'bg-red-500';
-      case JobStatus.OnHold:
+      case VacancyStatus.OnHold:
         return 'bg-blue-500';
       default:
         throw new Error('wrong status');
@@ -27,12 +27,12 @@ const JobState = ({ className, status }: JobStatusProps) => {
 
   const text = () => {
     switch (status) {
-      case JobStatus.Open:
+      case VacancyStatus.Open:
         return 'Открыта';
-      case JobStatus.Closed:
+      case VacancyStatus.Closed:
         return 'Закрыта';
-      case JobStatus.OnHold:
-        return 'Согласуется';
+      case VacancyStatus.OnHold:
+        return 'На согласовании';
       default:
         throw new Error('wrong status');
     }
@@ -40,11 +40,11 @@ const JobState = ({ className, status }: JobStatusProps) => {
 
   const icon = () => {
     switch (status) {
-      case JobStatus.Open:
+      case VacancyStatus.Open:
         return CircleCheckBig;
-      case JobStatus.Closed:
+      case VacancyStatus.Closed:
         return CircleX;
-      case JobStatus.OnHold:
+      case VacancyStatus.OnHold:
         return LoaderCircle;
       default:
         throw new Error('wrong status');
@@ -59,4 +59,4 @@ const JobState = ({ className, status }: JobStatusProps) => {
   );
 };
 
-export default JobState;
+export default VacancyState;

@@ -18,8 +18,21 @@ import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const roleText = (role: Roles) => {
+  switch (role) {
+    case Roles.Hr:
+      return 'Рекрутер';
+    case Roles.BranchHead:
+      return 'Глава отдела';
+    default:
+      throw new Error('wrong role');
+  }
+};
+
 const Profile = () => {
   const { logOut, userData } = useAuthStore();
+
+  const { name, role, avatarUrl } = userData;
 
   const onLogOut = () => {
     console.log('logout attempt');
@@ -27,28 +40,15 @@ const Profile = () => {
     logOut(false);
   };
 
-  const role = () => {
-    switch (userData.role) {
-      case Roles.Hr:
-        return 'HR';
-      case Roles.BranchHead:
-        return 'Глава отдела';
-      default:
-        throw new Error('wrong role');
-    }
-  };
-
   return (
     <SafeAreaView edges={{ bottom: 'off', top: 'maximum' }} className="flex-1 p-5">
       <View className="flex-3 items-center">
         <Text className="justify-center text-3xl font-bold">Профиль</Text>
         <Avatar alt="@mrzachnugent" className="mt-5 h-32 w-32 border-background">
-          <AvatarImage source={{ uri: userData.avatarUrl, cache: 'reload' }} />
+          <AvatarImage source={{ uri: avatarUrl, cache: 'reload' }} />
         </Avatar>
-        <Text className="mt-5 text-2xl font-bold">
-          {userData.firstname} {userData.secondname}
-        </Text>
-        <Text className="mt-1 text-xl font-thin">{role()}</Text>
+        <Text className="mt-5 text-2xl font-bold">{name}</Text>
+        <Text className="mt-1 text-xl font-thin">{roleText(role)}</Text>
       </View>
 
       <View className="mt-5 w-full flex-1 gap-2">

@@ -1,19 +1,21 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type Pages = {
   index: undefined;
   signin: undefined;
   signup: undefined;
-  jobViewer: {id: string}
-  jobEditor: {id: string}
+  vacancyViewer: { id: string };
+  vacancyEditor: { id: string };
+  candidateViewer: { id: string };
+  candidateEditor: { id: string };
 };
 
 export type NavigationProp = NativeStackNavigationProp<Pages>;
 
-export enum JobStatus {
+export enum VacancyStatus {
   Open,
   Closed,
-  OnHold
+  OnHold,
 }
 
 export enum CandidateStatus {
@@ -21,28 +23,42 @@ export enum CandidateStatus {
   Reviewing,
   Offer,
   Hired,
-  Rejected
+  Rejected,
 }
 
 export enum EmploymentStatus {
   FullTime,
   Remote,
   PartTime,
-  Internship
+  Internship,
+}
+
+export enum InteractionType {
+  RecievedCall,
+  RecievedSms,
+  RecievedMail,
+  SentCall,
+  SentSms,
+  SentMail,
+  Interview,
+  Offer,
+  Hired,
+  Rejected,
 }
 
 export enum Roles {
   Hr,
-  BranchHead
+  BranchHead,
 }
 
-export type JobData = {
+export type VacancyData = {
   id: string;
   name: string;
   startSalary: number;
   endSalary: number;
   description: string;
   education: string;
+  experience: number;
   employment: EmploymentStatus;
   workHours: number;
   location: string;
@@ -50,34 +66,48 @@ export type JobData = {
   tags: string[];
   postDate: Date;
   endDate: Date;
-  status: JobStatus;
+  status: VacancyStatus;
   requirements: string[];
+  tasks: string[];
+  features: string[];
 };
 
 export type UserData = {
-  firstname: string;
-  secondname: string;
+  id: string;
+  name: string;
   role: Roles;
   avatarUrl: string;
   token: string;
-}
+};
 
 export type CandidateData = {
   id: string;
   name: string;
+  phone: string;
+  mail: string;
   salary: number;
   status: CandidateStatus;
   skills: string[];
-  workplaces: string[];
-  workplacesDates: Date[];
+  workplaces: Workplace[];
   education: string;
   experience: number;
   employment: EmploymentStatus;
   workHours: number;
   respondDate: Date;
-  jobId: string;
+  vacancyId: string;
+};
+
+export type Workplace = {
+  name: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type Interaction = {
+  id: string;
   candidateId: string;
-}
+  date: Date;
+  type: InteractionType;
+  byId: string;
+  message: string;
+};

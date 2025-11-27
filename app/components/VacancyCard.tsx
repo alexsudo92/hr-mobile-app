@@ -1,16 +1,16 @@
-import { EmploymentStatus, JobStatus, NavigationProp } from '@/types';
+import { EmploymentStatus, NavigationProp, VacancyStatus } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
 import { Separator } from '@/ui/separator';
 import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
-import { Briefcase, Building, MapPin } from 'lucide-react-native';
+import { Briefcase, Building, Calendar, MapPin } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
-import JobState from './JobState';
+import VacancyState from './VacancyState';
 
-interface JobCardProps {
+interface VacancyCardProps {
   id: string;
   employment: EmploymentStatus;
   name: string;
@@ -18,11 +18,11 @@ interface JobCardProps {
   branch: string;
   startSalary: number;
   endSalary: number;
-  status: JobStatus;
+  status: VacancyStatus;
   postDate: Date;
 }
 
-const JobCard = ({
+const VacancyCard = ({
   id,
   employment,
   name,
@@ -32,7 +32,7 @@ const JobCard = ({
   startSalary,
   status,
   endSalary,
-}: JobCardProps) => {
+}: VacancyCardProps) => {
   const navigation = useNavigation<NavigationProp>();
 
   const employmentText = () => {
@@ -55,7 +55,7 @@ const JobCard = ({
       <CardHeader>
         <View className="flex-row items-center justify-between">
           <Text className="text-sm font-semibold">{name}</Text>
-          <JobState status={status}></JobState>
+          <VacancyState status={status}></VacancyState>
         </View>
 
         <Text className="text-sm font-semibold text-green-600">
@@ -83,21 +83,25 @@ const JobCard = ({
 
       <CardContent>
         <View className="flex-row justify-center gap-1">
-          <Button onPress={() => navigation.navigate('jobViewer', { id })} className="w-1/2">
+          <Button onPress={() => navigation.navigate('vacancyViewer', { id })} className="w-1/2">
             <Text>Просмотр</Text>
           </Button>
-          <Button onPress={() => navigation.navigate('jobEditor', { id })} className="w-1/2">
+          <Button onPress={() => navigation.navigate('vacancyEditor', { id })} className="w-1/2">
             <Text>Управление</Text>
           </Button>
         </View>
       </CardContent>
 
       <Separator />
-      <CardFooter className="justify-end">
-        <Text className="text-sm text-teal-600">Опубликовано {postDate.toLocaleDateString()}</Text>
+      <CardFooter className="justify-between">
+        <View className="flex-row items-center gap-1">
+          <Icon as={Calendar} size={16}></Icon>
+          <Text className="text-sm text-teal-600">Дата публикации:</Text>
+        </View>
+        <Text className="text-sm text-teal-600">{postDate.toLocaleDateString()}</Text>
       </CardFooter>
     </Card>
   );
 };
 
-export default JobCard;
+export default VacancyCard;

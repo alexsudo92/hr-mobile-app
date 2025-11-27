@@ -6,12 +6,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PortalHost } from '@rn-primitives/portal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import SignInScreen from './screens/auth/signin';
-import SignUpScreen from './screens/auth/signup';
-import StartScreen from './screens/auth/startup';
-import JobEditorScreen from './screens/jobs/editor';
-import JobViewerScreen from './screens/jobs/viewer';
-import IndexScreen from './screens/tabs/_layout';
+import 'react-native-get-random-values';
+import SignIn from './screens/auth/signin';
+import SignUp from './screens/auth/signup';
+import Start from './screens/auth/startup';
+import CandidateEditor from './screens/candidate/editor';
+import CandidateViewer from './screens/candidate/viewer';
+import Index from './screens/tabs/_layout';
+import VacancyEditor from './screens/vacancy/editor';
+import VacancyViewer from './screens/vacancy/viewer';
 
 import useAuthStore from '@/stores/authStore';
 
@@ -26,10 +29,10 @@ export default function RootLayout() {
         <Stack.Navigator>
           {isSignedIn ? (
             <Stack.Group>
-              <Stack.Screen name="main" component={IndexScreen} options={{ headerShown: false }} />
+              <Stack.Screen name="main" component={Index} options={{ headerShown: false }} />
               <Stack.Screen
-                name="jobViewer"
-                component={JobViewerScreen}
+                name="vacancyViewer"
+                component={VacancyViewer}
                 options={{
                   headerTitle: 'Просмотр вакансии',
                   headerTitleAlign: 'center',
@@ -37,10 +40,28 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
-                name="jobEditor"
-                component={JobEditorScreen}
+                name="vacancyEditor"
+                component={VacancyEditor}
                 options={{
                   headerTitle: 'Редактирование вакансии',
+                  headerTitleAlign: 'center',
+                  contentStyle: { flex: 1 },
+                }}
+              />
+              <Stack.Screen
+                name="candidateViewer"
+                component={CandidateViewer}
+                options={{
+                  headerTitle: 'Просмотр кандидата',
+                  headerTitleAlign: 'center',
+                  contentStyle: { flex: 1 },
+                }}
+              />
+              <Stack.Screen
+                name="candidateEditor"
+                component={CandidateEditor}
+                options={{
+                  headerTitle: 'Редактирование кандидата',
                   headerTitleAlign: 'center',
                   contentStyle: { flex: 1 },
                 }}
@@ -48,10 +69,10 @@ export default function RootLayout() {
             </Stack.Group>
           ) : (
             <Stack.Group>
-              <Stack.Screen name="start" component={StartScreen} options={{ headerShown: false }} />
+              <Stack.Screen name="start" component={Start} options={{ headerShown: false }} />
               <Stack.Screen
                 name="signin"
-                component={SignInScreen}
+                component={SignIn}
                 options={{
                   headerShown: true,
                   headerTitle: 'Авторизация',
@@ -60,7 +81,7 @@ export default function RootLayout() {
               />
               <Stack.Screen
                 name="signup"
-                component={SignUpScreen}
+                component={SignUp}
                 options={{
                   headerShown: true,
                   headerTitle: 'Регистрация',

@@ -1,6 +1,7 @@
-import JobState from '@/app/components/JobState';
-import { useJobStore } from '@/stores';
-import { EmploymentStatus, JobData, NavigationProp } from '@/types';
+import VacancyState from '@/app/components/VacancyState';
+import { employmentText, getPlural } from '@/lib/utils';
+import { useVacancyStore } from '@/stores';
+import { NavigationProp, VacancyData } from '@/types';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
 import { Separator } from '@/ui/separator';
@@ -11,23 +12,8 @@ import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const employmentText = (employment: EmploymentStatus) => {
-  switch (employment) {
-    case EmploymentStatus.FullTime:
-      return 'Полный рабочий день';
-    case EmploymentStatus.Internship:
-      return 'Стажировка';
-    case EmploymentStatus.Remote:
-      return 'Удаленная работа';
-    case EmploymentStatus.PartTime:
-      return 'Неполный рабочий день';
-    default:
-      throw new Error('wrong status');
-  }
-};
-
 const Viewer = ({ route }: any) => {
-  const { getJob } = useJobStore();
+  const { getVacancy } = useVacancyStore();
   const navigation = useNavigation<NavigationProp>();
 
   const {
@@ -46,17 +32,16 @@ const Viewer = ({ route }: any) => {
     employment,
     workHours,
     tags,
-  }: JobData = getJob(route.params.id);
-  <TouchableOpacity
-    onPress={() => navigation.navigate('jobEditor', { id })}
-    className="w-fit self-center">
-    <Icon as={Edit} size={40} />
-  </TouchableOpacity>;
+    tasks,
+    features,
+    experience,
+  }: VacancyData = getVacancy(route.params.id);
+
   return (
     <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
       <TouchableOpacity
         className="absolute left-[90%] top-[90%] z-10"
-        onPress={() => navigation.navigate('jobEditor', { id })}>
+        onPress={() => navigation.navigate('vacancyEditor', { id })}>
         <View className="size-14 items-center justify-center rounded-full bg-amber-700 shadow-md">
           <Icon size={35} className="color-white" as={Edit} />
         </View>
@@ -64,26 +49,34 @@ const Viewer = ({ route }: any) => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-2">
         <Card>
           <CardHeader className="flex flex-row">
-            <View className="flex-1">
-              <Text className="text-2xl font-semibold">{name}</Text>
-              <Separator />
-              <JobState className="my-2" status={status} />
-              <Separator />
-              <Text className="text-lg font-medium text-green-600">
-                {startSalary} ₽ — {endSalary} ₽
-              </Text>
-            </View>
+            <Text className="text-2xl font-semibold">{name}</Text>
           </CardHeader>
+          <Separator />
+          <CardContent>
+            <VacancyState status={status} />
+          </CardContent>
+          <Separator />
+          <CardContent>
+            <Text className="text-lg font-medium text-green-600">
+              {startSalary} ₽ — {endSalary} ₽
+            </Text>
+          </CardContent>
         </Card>
         <Card>
           <CardContent className="gap-2">
-            <View className="flex-row items-center gap-2">
+            <View className="flex-row gap-2">
               <Icon as={Building} size={20} />
               <Text className="text-sm">Отдел: {branch}</Text>
             </View>
-            <View className="flex-row items-center gap-2">
+            <View className="flex-row gap-2">
               <Icon as={MapPin} size={20} />
               <Text className="text-sm">Город: {location}</Text>
+            </View>
+            <View className="flex-row gap-2">
+              <Icon as={Briefcase} size={20} />
+              <Text className="text-sm">
+                Опыт работы: {experience} {getPlural(experience, ['год', 'года', 'лет'])}
+              </Text>
             </View>
           </CardContent>
         </Card>
@@ -112,12 +105,46 @@ const Viewer = ({ route }: any) => {
         </Card>
         <Card>
           <CardHeader>
-            <Text className="text-lg font-semibold">Требования</Text>
+            <Text className="text-lg font-semibold">Образование</Text>
           </CardHeader>
           <Separator />
           <CardContent>
             <Text className="text-sm">• {education}</Text>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Text className="text-lg font-semibold">Требования</Text>
+          </CardHeader>
+          <Separator />
+          <CardContent>
             {requirements.map((x, i) => (
+              <Text key={i} className="text-sm">
+                • {x}
+              </Text>
+            ))}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Text className="text-lg font-semibold">Задачи</Text>
+          </CardHeader>
+          <Separator />
+          <CardContent>
+            {tasks.map((x, i) => (
+              <Text key={i} className="text-sm">
+                • {x}
+              </Text>
+            ))}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Text className="text-lg font-semibold">Условия</Text>
+          </CardHeader>
+          <Separator />
+          <CardContent>
+            {features.map((x, i) => (
               <Text key={i} className="text-sm">
                 • {x}
               </Text>

@@ -17,13 +17,13 @@ export interface FilterProps<T, V> {
   onFilteredDataChange: (filteredData: T[]) => void;
 }
 
-function Filter<T, V>({
+const Filter = <T, V>({
   data,
   filterOptions,
   searchKey,
   statusKey,
   onFilteredDataChange,
-}: FilterProps<T, V>) {
+}: FilterProps<T, V>) => {
   const [active, setActive] = useState<V | number>(0);
   const [search, setSearch] = useState('');
   useEffect(() => {
@@ -67,6 +67,6 @@ function Filter<T, V>({
       </ScrollView>
     </View>
   );
-}
+};
 
 export default Filter;

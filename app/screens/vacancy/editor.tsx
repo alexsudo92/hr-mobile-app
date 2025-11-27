@@ -1,6 +1,7 @@
-import JobState from '@/app/components/JobState';
-import { useJobStore } from '@/stores';
-import { EmploymentStatus, JobData, NavigationProp } from '@/types';
+import EditableList from '@/app/components/EditableList';
+import VacancyState from '@/app/components/VacancyState';
+import { useVacancyStore } from '@/stores';
+import { EmploymentStatus, NavigationProp, VacancyData } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
@@ -9,16 +10,16 @@ import { Separator } from '@/ui/separator';
 import { Text } from '@/ui/text';
 import { Textarea } from '@/ui/textarea';
 import { useNavigation } from '@react-navigation/native';
-import { Building, Clock, MapPin, Plus, Save, X } from 'lucide-react-native';
+import { Briefcase, Building, Clock, MapPin, Save } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Editor = ({ route }: any) => {
-  const { getJob, setJob } = useJobStore();
+  const { getVacancy, setVacancy } = useVacancyStore();
 
-  const job = getJob(route.params.id);
-  const [editedJob, setEditedJob] = useState<JobData>(job);
+  const vacancy = getVacancy(route.params.id);
+  const [editedVacancy, setEditedVacancy] = useState<VacancyData>(vacancy);
 
   const {
     name,
@@ -35,7 +36,10 @@ const Editor = ({ route }: any) => {
     employment,
     workHours,
     tags,
-  } = editedJob;
+    tasks,
+    features,
+    experience,
+  } = editedVacancy;
 
   const [postDateString, setPostDate] = useState<string>(postDate.toLocaleDateString());
   const [endDateString, setEndDate] = useState<string>(endDate.toLocaleDateString());
@@ -45,57 +49,25 @@ const Editor = ({ route }: any) => {
     const pDs = postDateString.split('.');
     const eDs = endDateString.split('.');
 
-    const updatedJob = {
-      ...editedJob,
+    const updatedVacancy = {
+      ...editedVacancy,
       postDate: new Date(Number(pDs[2]), Number(pDs[1]) - 1, Number(pDs[0])),
       endDate: new Date(Number(eDs[2]), Number(eDs[1]) - 1, Number(eDs[0])),
     };
 
-    setJob(job.id, updatedJob);
+    setVacancy(updatedVacancy);
 
     navigation.goBack();
   };
 
-  const updateField = (field: keyof JobData, value: any) => {
-    setEditedJob((prev) => (prev ? { ...prev, [field]: value } : job));
-  };
-
-  const addRequirement = () => {
-    const newRequirements = [...requirements, ''];
-    updateField('requirements', newRequirements);
-  };
-
-  const removeRequirement = (index: number) => {
-    const newRequirements = requirements.filter((_, i) => i !== index);
-    updateField('requirements', newRequirements);
-  };
-
-  const updateRequirement = (index: number, value: string) => {
-    const newRequirements = [...requirements];
-    newRequirements[index] = value;
-    updateField('requirements', newRequirements);
-  };
-
-  const addTag = () => {
-    const newTags = [...tags, ''];
-    updateField('tags', newTags);
-  };
-
-  const removeTag = (index: number) => {
-    const newTags = tags.filter((_, i) => i !== index);
-    updateField('tags', newTags);
-  };
-
-  const updateTag = (index: number, value: string) => {
-    const newTags = [...tags];
-    newTags[index] = value;
-    updateField('tags', newTags);
+  const updateField = (field: keyof VacancyData, value: any) => {
+    setEditedVacancy((prev) => (prev ? { ...prev, [field]: value } : vacancy));
   };
 
   return (
     <KeyboardAvoidingView keyboardVerticalOffset={40} behavior={'padding'}>
       <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
-        <TouchableOpacity className="absolute left-[90%] top-[90%] z-10" onPress={handleSave}>
+        <TouchableOpacity className="absolute left-[90%] top-[1%] z-10" onPress={handleSave}>
           <View className="size-14 items-center justify-center rounded-full bg-blue-700 shadow-md">
             <Icon size={35} className="color-white" as={Save} />
           </View>
@@ -111,7 +83,7 @@ const Editor = ({ route }: any) => {
                   placeholder="Название вакансии"
                 />
 
-                <JobState className="my-2" status={status} />
+                <VacancyState className="my-2" status={status} />
 
                 <View className="flex-row gap-2">
                   <Input
@@ -153,6 +125,15 @@ const Editor = ({ route }: any) => {
                   onChangeText={(value) => updateField('location', value)}
                   className="flex-1 text-sm"
                   placeholder="Город"
+                />
+              </View>
+              <View className="flex-row items-center gap-2">
+                <Icon as={Briefcase} size={20} />
+                <Input
+                  value={experience.toString()}
+                  onChangeText={(value) => updateField('experience', value)}
+                  className="flex-1 text-sm"
+                  placeholder="Опыт работы"
                 />
               </View>
             </CardContent>
@@ -199,40 +180,35 @@ const Editor = ({ route }: any) => {
           </Card>
 
           <Card>
-            <CardHeader className="flex-row items-center justify-between">
-              <Text className="text-lg font-semibold">Требования</Text>
-              <TouchableOpacity onPress={addRequirement}>
-                <View className="size-8 items-center justify-center rounded-full bg-gray-200">
-                  <Icon size={20} className="color-black" as={Plus} />
-                </View>
-              </TouchableOpacity>
+            <CardHeader>
+              <Text className="text-lg font-semibold">Образование</Text>
             </CardHeader>
             <Separator />
-            <CardContent className="gap-2">
+            <CardContent>
               <Input
                 value={education}
                 onChangeText={(value) => updateField('education', value)}
                 className="text-sm"
                 placeholder="Образование"
               />
-              {requirements.map((requirement, index) => (
-                <View key={index} className="flex-row items-center gap-2">
-                  <TouchableOpacity onPress={() => removeRequirement(index)}>
-                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
-                      <Icon size={16} className="color-red-600" as={X} />
-                    </View>
-                  </TouchableOpacity>
-                  <Input
-                    value={requirement}
-                    onChangeText={(value) => updateRequirement(index, value)}
-                    className="flex-1 text-sm"
-                    placeholder={`Требование ${index + 1}`}
-                  />
-                </View>
-              ))}
             </CardContent>
           </Card>
 
+          <EditableList
+            items={requirements}
+            title="Требования"
+            onItemsChange={(items) => updateField('requirements', items)}
+          />
+          <EditableList
+            items={tasks}
+            title="Задачи"
+            onItemsChange={(items) => updateField('tasks', items)}
+          />
+          <EditableList
+            items={features}
+            title="Условия"
+            onItemsChange={(items) => updateField('features', items)}
+          />
           <Card>
             <CardHeader>
               <Text className="text-lg font-semibold">Рабочий график</Text>
@@ -244,22 +220,20 @@ const Editor = ({ route }: any) => {
                   variant={employment == EmploymentStatus.FullTime ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.FullTime)}
                   className="items-center justify-center rounded-lg border py-2">
-                  <Text className="font-medium">Полный день</Text>
+                  <Text className="font-medium">Полный рабочий день</Text>
+                </Button>
+                <Button
+                  variant={employment === EmploymentStatus.PartTime ? 'default' : 'outline'}
+                  onPress={() => updateField('employment', EmploymentStatus.PartTime)}
+                  className="items-center justify-center rounded-lg border py-2">
+                  <Text className="font-medium">Неполный рабочий день</Text>
                 </Button>
                 <Button
                   variant={employment === EmploymentStatus.Remote ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.Remote)}
                   className="items-center justify-center rounded-lg border py-2">
-                  <Text className="font-medium">Удаленно</Text>
+                  <Text className="font-medium">Удаленная работа</Text>
                 </Button>
-
-                <Button
-                  variant={employment === EmploymentStatus.PartTime ? 'default' : 'outline'}
-                  onPress={() => updateField('employment', EmploymentStatus.PartTime)}
-                  className="items-center justify-center rounded-lg border py-2">
-                  <Text className="font-medium">Частичная занятость</Text>
-                </Button>
-
                 <Button
                   variant={employment === EmploymentStatus.Internship ? 'default' : 'outline'}
                   onPress={() => updateField('employment', EmploymentStatus.Internship)}
@@ -275,41 +249,16 @@ const Editor = ({ route }: any) => {
                   onChangeText={(value) => updateField('workHours', Number(value))}
                   className="flex-1 text-sm"
                   keyboardType="numeric"
-                  placeholder="Количество рабочих часов"
                 />
-                <Text className="text-sm text-gray-600">часов</Text>
+                <Text className="text-sm text-gray-600">часов в неделю</Text>
               </View>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader className="flex-row items-center justify-between">
-              <Text className="text-lg font-semibold">Тэги</Text>
-              <TouchableOpacity onPress={addTag}>
-                <View className="size-8 items-center justify-center rounded-full bg-gray-200">
-                  <Icon size={20} className="color-black" as={Plus} />
-                </View>
-              </TouchableOpacity>
-            </CardHeader>
-            <Separator />
-            <CardContent className="gap-2">
-              {tags.map((tag, index) => (
-                <View key={index} className="flex-row items-center gap-2">
-                  <TouchableOpacity onPress={() => removeTag(index)}>
-                    <View className="size-8 items-center justify-center rounded-full bg-red-100">
-                      <Icon size={16} className="color-red-600" as={X} />
-                    </View>
-                  </TouchableOpacity>
-                  <Input
-                    value={tag}
-                    onChangeText={(value) => updateTag(index, value)}
-                    placeholder="Тэг"
-                    className="flex-1 text-sm"
-                  />
-                </View>
-              ))}
-            </CardContent>
-          </Card>
+          <EditableList
+            items={tags}
+            title="Тэги"
+            onItemsChange={(items) => updateField('tags', items)}
+          />
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>

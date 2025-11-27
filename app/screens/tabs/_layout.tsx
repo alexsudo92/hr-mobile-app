@@ -1,10 +1,10 @@
-import HomePage from '@/app/screens/tabs/home';
+import VacanciesPage from '@/app/screens/tabs/vacancies';
 import { Icon } from '@/ui/icon';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, LucideIcon, Notebook, User } from 'lucide-react-native';
+import { BriefcaseBusiness, LucideIcon, Notebook, User } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
-import KanbanPage from './kanban';
+import CandidatesPage from './candidates';
 import ProfilePage from './profile';
 
 const Tab = createBottomTabNavigator();
@@ -28,18 +28,18 @@ function TabLayout() {
         tabBarShowLabel: false,
       }}>
       <Tab.Screen
-        name="home"
+        name="vacancies"
         options={{
-          tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={Home} />,
+          tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={BriefcaseBusiness} />,
         }}
-        component={HomePage}
+        component={VacanciesPage}
       />
       <Tab.Screen
-        name="kanban"
+        name="candidates"
         options={{
           tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={Notebook} />,
         }}
-        component={KanbanPage}
+        component={CandidatesPage}
       />
       <Tab.Screen
         name="profile"
