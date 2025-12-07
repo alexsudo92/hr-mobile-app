@@ -16,12 +16,28 @@ import Index from './screens/tabs/_layout';
 import VacancyEditor from './screens/vacancy/editor';
 import VacancyViewer from './screens/vacancy/viewer';
 
+import { info } from '@/lib/httpClient';
+import { storage } from '@/lib/storage';
 import useAuthStore from '@/stores/authStore';
+import { useEffect } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 export default function RootLayout() {
-  const { isSignedIn } = useAuthStore();
+  const { isSignedIn, setUserData, signIn } = useAuthStore();
+
+  useEffect(() => {
+    var userToken = storage.getString('token');
+
+    if (userToken !== undefined && userToken !== '') {
+      info(userToken)
+        .then((userData) => {
+          setUserData(userData);
+          signIn();
+        })
+        .catch((e) => console.log(e));
+    }
+  }, []);
 
   return (
     <SafeAreaProvider>

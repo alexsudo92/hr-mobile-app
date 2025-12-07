@@ -47,10 +47,9 @@ export enum InteractionType {
 }
 
 export enum Roles {
-  User,
-  Hr,
-  BranchHead,
-  Admin,
+  Hr = 'Hr',
+  BranchHead = 'BranchHead',
+  Admin = 'Admin',
 }
 
 export type VacancyData = {
@@ -80,7 +79,7 @@ export type UserData = {
   email: string;
   phoneNumber: string;
   role: Roles;
-  avatarId: string;
+  avatarUrl: string;
   token: string;
 };
 

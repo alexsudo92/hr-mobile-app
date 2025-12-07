@@ -4,31 +4,9 @@ import {
   EmploymentType,
   Interaction,
   InteractionType,
-  Roles,
-  UserData,
   VacancyData,
   VacancyStatus,
 } from '@/types';
-
-export const userData1: UserData = {
-  id: '019ac280-13e8-7dcf-82f4-2e15f24d94ad',
-  username: 'Анна Иванова',
-  email: 'mail@mail.com',
-  phoneNumber: '733867846',
-  role: Roles.Hr,
-  avatarId: '019ac280-13e8-7dcf-82f4-2e15f24d94fd',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMzQ1LCJyb2xlIjoiSHIifQ.abc123def456',
-};
-
-export const userData2: UserData = {
-  id: '019ac280-13e8-7dcf-82f4-1e14f24d94ad',
-  username: 'Иван Иванов',
-  email: 'mail2@mail.com',
-  phoneNumber: '733867846',
-  role: Roles.BranchHead,
-  avatarId: '019ac280-13e8-7dcf-82f4-1e14f24d9433',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI7IkpXVCJ9.eyJ1c2VySWQiOjEyMzQ1LCJyb2xlIjoiSHIifQ.abc123def456',
-};
 
 export const vacancies: VacancyData[] = [
   {

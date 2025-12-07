@@ -4,19 +4,21 @@ import { create } from 'zustand';
 
 type State = {
   isSignedIn: boolean;
-  userData: UserData;
+  data: UserData;
 };
 
 type Action = {
-  signIn: (value: State['isSignedIn']) => void;
-  logOut: (value: State['isSignedIn']) => void;
+  signIn: () => void;
+  logOut: () => void;
+  setUserData: (value: UserData) => void;
 };
 
 const useAuthStore = create<State & Action>((set) => ({
   isSignedIn: false,
-  userData: userData1,
+  data: userData1,
   signIn: () => set(() => ({ isSignedIn: true })),
   logOut: () => set(() => ({ isSignedIn: false })),
+  setUserData: (value) => set(() => ({ data: value })),
 }));
 
 export default useAuthStore;

@@ -1,3 +1,5 @@
+import { logout } from '@/lib/httpClient';
+import { storage } from '@/lib/storage';
 import { useAuthStore } from '@/stores';
 import { Roles } from '@/types';
 import { Avatar, AvatarImage } from '@/ui/avatar';
@@ -24,28 +26,43 @@ const roleText = (role: Roles) => {
       return 'Рекрутер';
     case Roles.BranchHead:
       return 'Глава отдела';
+    case Roles.Admin:
+      return 'Администратор';
     default:
       throw new Error('wrong role');
   }
 };
 
 const Profile = () => {
-  const { logOut, userData } = useAuthStore();
+  const { logOut, data, setUserData } = useAuthStore();
 
-  const { username, role, avatarId } = userData;
+  const { username, role, avatarUrl, token } = data;
 
-  const onLogOut = () => {
+  const handleLogout = async () => {
     console.log('logout attempt');
+    await logout(token);
 
-    logOut(false);
+    setUserData({
+      id: '',
+      username: '',
+      email: '',
+      phoneNumber: '',
+      role: Roles.Hr,
+      avatarUrl: '',
+      token: '',
+    });
+
+    storage.set('token', '');
+
+    logOut();
   };
 
   return (
     <SafeAreaView edges={{ bottom: 'off', top: 'maximum' }} className="flex-1 p-5">
       <View className="flex-3 items-center">
         <Text className="justify-center text-3xl font-bold">Профиль</Text>
-        <Avatar alt="@mrzachnugent" className="mt-5 h-32 w-32 border-background">
-          <AvatarImage source={{ uri: avatarId, cache: 'reload' }} />
+        <Avatar alt={username} className="mt-5 h-32 w-32 border-background">
+          <AvatarImage source={{ uri: avatarUrl, cache: 'reload' }} />
         </Avatar>
         <Text className="mt-5 text-2xl font-bold">{username}</Text>
         <Text className="mt-1 text-xl font-thin">{roleText(role)}</Text>
@@ -80,7 +97,7 @@ const Profile = () => {
       </View>
 
       <View className="flex-1 justify-end">
-        <Button onPress={() => onLogOut()} className="justify-between bg-red-700">
+        <Button onPress={handleLogout} className="justify-between bg-red-700">
           <Icon color={'white'} as={LogOut}></Icon>
           <Text className="font-semibold">Выход</Text>
           <Icon color={'white'} as={ArrowRight}></Icon>

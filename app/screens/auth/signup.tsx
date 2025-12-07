@@ -1,4 +1,7 @@
 import { Registration } from '@/lib/dtoTypes';
+import { info, login, register } from '@/lib/httpClient';
+import { storage } from '@/lib/storage';
+import { useAuthStore } from '@/stores';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Text } from '@/ui/text';
@@ -6,6 +9,8 @@ import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = () => {
+  const { signIn, setUserData } = useAuthStore();
+
   const [mail, setMail] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -16,7 +21,17 @@ const SignUp = () => {
       phone: phone,
       email: mail,
       username: name,
+      password: password,
     };
+
+    await register(data);
+
+    const token = await login(data);
+    const userData = await info(token);
+    storage.set('token', token);
+
+    setUserData(userData);
+    signIn();
   };
 
   return (
