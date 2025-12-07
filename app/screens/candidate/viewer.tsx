@@ -83,7 +83,7 @@ const Viewer = ({ route }: any) => {
           <Separator />
           <CardContent className="flex-row items-center gap-2">
             <Icon as={BadgeRussianRuble} size={20} />
-            <Text className="text-lg font-medium text-green-600">{salary} ₽</Text>
+            <Text className="text-lg font-medium text-green-600">{salary.toLocaleString()} ₽</Text>
           </CardContent>
         </Card>
         <Card>

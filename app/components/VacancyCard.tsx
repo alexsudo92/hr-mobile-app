@@ -1,4 +1,4 @@
-import { EmploymentStatus, NavigationProp, VacancyStatus } from '@/types';
+import { EmploymentType, NavigationProp, VacancyStatus } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
@@ -12,7 +12,7 @@ import VacancyState from './VacancyState';
 
 interface VacancyCardProps {
   id: string;
-  employment: EmploymentStatus;
+  employment: EmploymentType;
   name: string;
   location: string;
   branch: string;
@@ -21,6 +21,21 @@ interface VacancyCardProps {
   status: VacancyStatus;
   postDate: Date;
 }
+
+const employmentText = (employment: EmploymentType) => {
+  switch (employment) {
+    case EmploymentType.FullTime:
+      return 'Полный рабочий день';
+    case EmploymentType.Internship:
+      return 'Стажировка';
+    case EmploymentType.Remote:
+      return 'Удаленная работа';
+    case EmploymentType.PartTime:
+      return 'Неполный рабочий день';
+    default:
+      throw new Error('wrong status');
+  }
+};
 
 const VacancyCard = ({
   id,
@@ -35,21 +50,6 @@ const VacancyCard = ({
 }: VacancyCardProps) => {
   const navigation = useNavigation<NavigationProp>();
 
-  const employmentText = () => {
-    switch (employment) {
-      case EmploymentStatus.FullTime:
-        return 'Полный рабочий день';
-      case EmploymentStatus.Internship:
-        return 'Стажировка';
-      case EmploymentStatus.Remote:
-        return 'Удаленная работа';
-      case EmploymentStatus.PartTime:
-        return 'Неполный рабочий день';
-      default:
-        throw new Error('wrong status');
-    }
-  };
-
   return (
     <Card>
       <CardHeader>
@@ -59,7 +59,7 @@ const VacancyCard = ({
         </View>
 
         <Text className="text-sm font-semibold text-green-600">
-          {startSalary} ₽ — {endSalary} ₽
+          {startSalary.toLocaleString()} ₽ — {endSalary.toLocaleString()} ₽
         </Text>
       </CardHeader>
       <Separator />
@@ -75,7 +75,7 @@ const VacancyCard = ({
         </View>
         <View className="flex-row items-center gap-2">
           <Icon as={Briefcase} size={20} />
-          <Text className="text-sm">{employmentText()}</Text>
+          <Text className="text-sm">{employmentText(employment)}</Text>
         </View>
       </CardContent>
 

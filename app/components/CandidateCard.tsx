@@ -1,5 +1,5 @@
 import { employmentText } from '@/lib/utils';
-import { CandidateStatus, EmploymentStatus, NavigationProp } from '@/types';
+import { CandidateStatus, EmploymentType, NavigationProp } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
@@ -17,13 +17,19 @@ interface CandidateCardProps {
   name: string;
   salary: number;
   status: CandidateStatus;
-  skills: string[];
   education: string;
   experience: number;
-  employment: EmploymentStatus;
+  employment: EmploymentType;
   workHours: number;
   respondDate: Date;
 }
+
+const experienceText = (experience: number) => {
+  if (experience === 0) return 'Без опыта';
+  if (experience === 1) return '1 год';
+  if (experience >= 2 && experience <= 4) return `${experience} года`;
+  return `${experience} лет`;
+};
 
 const CandidateCard = ({
   id,
@@ -31,7 +37,6 @@ const CandidateCard = ({
   name,
   salary,
   status,
-  skills,
   education,
   experience,
   employment,
@@ -39,13 +44,6 @@ const CandidateCard = ({
   respondDate,
 }: CandidateCardProps) => {
   const navigation = useNavigation<NavigationProp>();
-
-  const experienceText = () => {
-    if (experience === 0) return 'Без опыта';
-    if (experience === 1) return '1 год';
-    if (experience >= 2 && experience <= 4) return `${experience} года`;
-    return `${experience} лет`;
-  };
 
   return (
     <Card>
@@ -68,7 +66,7 @@ const CandidateCard = ({
         </View>
         <View className="flex-row items-center gap-2">
           <Icon as={BookText} size={20} />
-          <Text className="text-sm">Опыт работы {experienceText()}</Text>
+          <Text className="text-sm">Опыт работы {experienceText(experience)}</Text>
         </View>
         <View className="flex-row items-center gap-2">
           <Icon as={Briefcase} size={20} />

@@ -1,7 +1,7 @@
 import Filter, { FilterOption } from '@/app/components/Filter';
 import VacancyCard from '@/app/components/VacancyCard';
 import { useVacancyStore } from '@/stores';
-import { EmploymentStatus, NavigationProp, VacancyData, VacancyStatus } from '@/types';
+import { EmploymentType, NavigationProp, VacancyData, VacancyStatus } from '@/types';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
@@ -40,7 +40,7 @@ const Vacancies = () => {
       endSalary: 0,
       description: '',
       education: '',
-      employment: EmploymentStatus.FullTime,
+      employment: EmploymentType.FullTime,
       workHours: 0,
       location: '',
       branch: '',

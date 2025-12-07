@@ -1,7 +1,7 @@
 import CandidateCard from '@/app/components/CandidateCard';
 import Filter, { FilterOption } from '@/app/components/Filter';
 import { useCandidateStore } from '@/stores';
-import { CandidateData, CandidateStatus, EmploymentStatus, NavigationProp } from '@/types';
+import { CandidateData, CandidateStatus, EmploymentType, NavigationProp } from '@/types';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
@@ -48,7 +48,7 @@ const Candidates = () => {
       workplaces: [],
       education: '',
       experience: 0,
-      employment: EmploymentStatus.FullTime,
+      employment: EmploymentType.FullTime,
       workHours: 0,
       respondDate: new Date(),
       vacancyId: '',
@@ -84,7 +84,6 @@ const Candidates = () => {
             id,
             vacancyId,
             salary,
-            skills,
             education,
             workHours,
             name,
@@ -103,7 +102,6 @@ const Candidates = () => {
             experience={experience}
             employment={employment}
             salary={salary}
-            skills={skills}
             education={education}
             vacancyId={vacancyId}
           />

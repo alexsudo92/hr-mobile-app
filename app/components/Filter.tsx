@@ -26,6 +26,7 @@ const Filter = <T, V>({
 }: FilterProps<T, V>) => {
   const [active, setActive] = useState<V | number>(0);
   const [search, setSearch] = useState('');
+
   useEffect(() => {
     const filteredData = data.filter((item) => {
       const searchField = item[searchKey];

@@ -26,7 +26,7 @@ export enum CandidateStatus {
   Rejected,
 }
 
-export enum EmploymentStatus {
+export enum EmploymentType {
   FullTime,
   Remote,
   PartTime,
@@ -47,8 +47,10 @@ export enum InteractionType {
 }
 
 export enum Roles {
+  User,
   Hr,
   BranchHead,
+  Admin,
 }
 
 export type VacancyData = {
@@ -59,7 +61,7 @@ export type VacancyData = {
   description: string;
   education: string;
   experience: number;
-  employment: EmploymentStatus;
+  employment: EmploymentType;
   workHours: number;
   location: string;
   branch: string;
@@ -74,9 +76,11 @@ export type VacancyData = {
 
 export type UserData = {
   id: string;
-  name: string;
+  username: string;
+  email: string;
+  phoneNumber: string;
   role: Roles;
-  avatarUrl: string;
+  avatarId: string;
   token: string;
 };
 
@@ -91,7 +95,7 @@ export type CandidateData = {
   workplaces: Workplace[];
   education: string;
   experience: number;
-  employment: EmploymentStatus;
+  employment: EmploymentType;
   workHours: number;
   respondDate: Date;
   vacancyId: string;

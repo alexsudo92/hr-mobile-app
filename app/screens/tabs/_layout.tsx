@@ -20,7 +20,7 @@ const TabIcon = ({ focused, icon }: TabIconProps) => (
   </View>
 );
 
-function TabLayout() {
+const TabLayout = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -50,6 +50,6 @@ function TabLayout() {
       />
     </Tab.Navigator>
   );
-}
+};
 
 export default TabLayout;

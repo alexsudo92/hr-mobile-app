@@ -1,33 +1,60 @@
+import { Registration } from '@/lib/dtoTypes';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Text } from '@/ui/text';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = () => {
+  const [mail, setMail] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleRegistration = async () => {
+    const data: Registration = {
+      phone: phone,
+      email: mail,
+      username: name,
+    };
+  };
+
   return (
     <SafeAreaView className="mt-10 items-center gap-5 p-5">
       <Text className="text-center text-lg">Зарегистрируйте свой аккаунт</Text>
-      <Input keyboardType="default" textContentType="name" autoComplete="name" placeholder="Имя" />
       <Input
         keyboardType="default"
         textContentType="name"
         autoComplete="name"
-        placeholder="Фамилия"
+        placeholder="Фамилия Имя Отчество"
+        value={name}
+        onChangeText={(e) => setName(e)}
       />
       <Input
         keyboardType="email-address"
         textContentType="emailAddress"
         autoComplete="email"
         placeholder="Email"
+        value={mail}
+        onChangeText={(e) => setMail(e)}
       />
       <Input
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
         autoComplete="tel"
         placeholder="Номер телефона"
+        value={phone}
+        onChangeText={(e) => setPhone(e)}
       />
-      <Button>
+      <Input
+        keyboardType="default"
+        textContentType="password"
+        autoComplete="password-new"
+        placeholder="Пароль"
+        value={password}
+        onChangeText={(e) => setPassword(e)}
+      />
+      <Button onPress={handleRegistration}>
         <Text>Регистрация</Text>
       </Button>
     </SafeAreaView>

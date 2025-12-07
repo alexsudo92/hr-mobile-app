@@ -1,4 +1,4 @@
-import { EmploymentStatus } from '@/types';
+import { EmploymentType } from '@/types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -6,15 +6,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const employmentText = (employment: EmploymentStatus) => {
+export const employmentText = (employment: EmploymentType) => {
   switch (employment) {
-    case EmploymentStatus.FullTime:
+    case EmploymentType.FullTime:
       return 'Полный рабочий день';
-    case EmploymentStatus.Internship:
+    case EmploymentType.Internship:
       return 'Стажировка';
-    case EmploymentStatus.Remote:
+    case EmploymentType.Remote:
       return 'Удаленная работа';
-    case EmploymentStatus.PartTime:
+    case EmploymentType.PartTime:
       return 'Неполный рабочий день';
     default:
       throw new Error('wrong status');

@@ -19,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CandidateState from '@/app/components/CandidateState';
 import EditableList from '@/app/components/EditableList';
 import { useCandidateStore } from '@/stores';
-import { CandidateData, EmploymentStatus, NavigationProp, Workplace } from '@/types';
+import { CandidateData, EmploymentType, NavigationProp, Workplace } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
@@ -247,26 +247,26 @@ const Editor = ({ route }: any) => {
             <CardContent className="gap-2">
               <View className="gap-2">
                 <Button
-                  variant={employment == EmploymentStatus.FullTime ? 'default' : 'outline'}
-                  onPress={() => updateField('employment', EmploymentStatus.FullTime)}
+                  variant={employment == EmploymentType.FullTime ? 'default' : 'outline'}
+                  onPress={() => updateField('employment', EmploymentType.FullTime)}
                   className="items-center justify-center rounded-lg border py-2">
                   <Text className="font-medium">Полный рабочий день</Text>
                 </Button>
                 <Button
-                  variant={employment === EmploymentStatus.PartTime ? 'default' : 'outline'}
-                  onPress={() => updateField('employment', EmploymentStatus.PartTime)}
+                  variant={employment === EmploymentType.PartTime ? 'default' : 'outline'}
+                  onPress={() => updateField('employment', EmploymentType.PartTime)}
                   className="items-center justify-center rounded-lg border py-2">
                   <Text className="font-medium">Неполный рабочий день</Text>
                 </Button>
                 <Button
-                  variant={employment === EmploymentStatus.Remote ? 'default' : 'outline'}
-                  onPress={() => updateField('employment', EmploymentStatus.Remote)}
+                  variant={employment === EmploymentType.Remote ? 'default' : 'outline'}
+                  onPress={() => updateField('employment', EmploymentType.Remote)}
                   className="items-center justify-center rounded-lg border py-2">
                   <Text className="font-medium">Удаленная работа</Text>
                 </Button>
                 <Button
-                  variant={employment === EmploymentStatus.Internship ? 'default' : 'outline'}
-                  onPress={() => updateField('employment', EmploymentStatus.Internship)}
+                  variant={employment === EmploymentType.Internship ? 'default' : 'outline'}
+                  onPress={() => updateField('employment', EmploymentType.Internship)}
                   className="items-center justify-center rounded-lg border py-2">
                   <Text className="font-medium">Стажировка</Text>
                 </Button>

@@ -32,7 +32,7 @@ const roleText = (role: Roles) => {
 const Profile = () => {
   const { logOut, userData } = useAuthStore();
 
-  const { name, role, avatarUrl } = userData;
+  const { username, role, avatarId } = userData;
 
   const onLogOut = () => {
     console.log('logout attempt');
@@ -45,9 +45,9 @@ const Profile = () => {
       <View className="flex-3 items-center">
         <Text className="justify-center text-3xl font-bold">Профиль</Text>
         <Avatar alt="@mrzachnugent" className="mt-5 h-32 w-32 border-background">
-          <AvatarImage source={{ uri: avatarUrl, cache: 'reload' }} />
+          <AvatarImage source={{ uri: avatarId, cache: 'reload' }} />
         </Avatar>
-        <Text className="mt-5 text-2xl font-bold">{name}</Text>
+        <Text className="mt-5 text-2xl font-bold">{username}</Text>
         <Text className="mt-1 text-xl font-thin">{roleText(role)}</Text>
       </View>
 

@@ -13,7 +13,7 @@ type Action = {
 };
 
 const useAuthStore = create<State & Action>((set) => ({
-  isSignedIn: true,
+  isSignedIn: false,
   userData: userData1,
   signIn: () => set(() => ({ isSignedIn: true })),
   logOut: () => set(() => ({ isSignedIn: false })),

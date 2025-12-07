@@ -58,7 +58,7 @@ const Viewer = ({ route }: any) => {
           <Separator />
           <CardContent>
             <Text className="text-lg font-medium text-green-600">
-              {startSalary} ₽ — {endSalary} ₽
+              {startSalary.toLocaleString()} ₽ — {endSalary.toLocaleString()} ₽
             </Text>
           </CardContent>
         </Card>
