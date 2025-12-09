@@ -71,6 +71,7 @@ const Candidates = () => {
       workHours: 0,
       respondDate: new Date(),
       vacancyId: '',
+      interactions: [],
     };
 
     addCandidate(newCandidate);

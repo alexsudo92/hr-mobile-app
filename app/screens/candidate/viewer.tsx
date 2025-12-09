@@ -1,6 +1,5 @@
 import CandidateState from '@/app/components/CandidateState';
 import InteractionList from '@/app/components/InteractionList';
-import { interactions } from '@/data/mockData';
 import { employmentText, experienceText, getPlural } from '@/lib/utils';
 import { useCandidateStore } from '@/stores';
 import { CandidateData, NavigationProp, Workplace } from '@/types';
@@ -67,6 +66,7 @@ const Viewer = ({ route }: any) => {
     vacancyId,
     phone,
     mail,
+    interactions,
   }: CandidateData = getCandidate(route.params.id);
 
   return (
@@ -188,7 +188,7 @@ const Viewer = ({ route }: any) => {
           </CardContent>
         </Card>
 
-        <InteractionList interactions={interactions.filter((x) => x.candidateId === id)} />
+        <InteractionList interactions={interactions} />
       </ScrollView>
     </SafeAreaView>
   );

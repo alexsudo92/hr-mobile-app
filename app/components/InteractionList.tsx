@@ -152,7 +152,7 @@ const InteractionList = ({ interactions, className }: InteractionListProps) => {
       <CardContent className="gap-2">
         <View className="absolute bottom-2 left-[34] top-2 w-1 bg-gray-300" />
 
-        {sortedInteractions.map(({ type, date, message, byId }, i) => (
+        {sortedInteractions.map(({ type, date, message, userId }, i) => (
           <View key={i} className="flex-row items-start gap-4">
             <View
               className={`flex size-12 items-center justify-center rounded-full border-2 ${getInteractionColor(type)}`}>
@@ -186,7 +186,7 @@ const InteractionList = ({ interactions, className }: InteractionListProps) => {
               )}
 
               <View className="flex-col justify-between gap-1">
-                <Text className="text-xs text-gray-400">By: {byId}</Text>
+                <Text className="text-xs text-gray-400">By: {userId}</Text>
                 <Text className="text-right text-xs text-gray-400">
                   {date.toLocaleTimeString()}
                 </Text>

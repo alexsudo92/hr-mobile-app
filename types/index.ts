@@ -110,6 +110,7 @@ export type CandidateData = {
   workHours: number;
   respondDate: Date;
   vacancyId: string;
+  interactions: Interaction[];
 };
 
 export type Workplace = {
@@ -120,9 +121,9 @@ export type Workplace = {
 
 export type Interaction = {
   id: string;
-  candidateId: string;
   date: Date;
   type: InteractionType;
-  byId: string;
   message: string;
+  candidateId: string;
+  userId: string;
 };

@@ -119,12 +119,17 @@ export const getCandidates = async (
     const candidates: CandidateData[] = response.data.map((item: CandidateData) => ({
       ...item,
       respondDate: new Date(item.respondDate),
+      interactions: item.interactions.map((iItem) => ({
+        ...iItem,
+        date: new Date(iItem.date),
+      })),
       workplaces: item.workplaces.map((wpItem) => ({
         ...wpItem,
         startDate: new Date(wpItem.startDate),
-        endDate: new Date(wpItem.startDate),
+        endDate: new Date(wpItem.endDate),
       })),
     }));
+
     return candidates;
   }
 
