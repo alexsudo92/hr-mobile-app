@@ -12,6 +12,18 @@ export type Pages = {
 
 export type NavigationProp = NativeStackNavigationProp<Pages>;
 
+export interface RegistrationDto {
+  username: string;
+  phone: string;
+  email: string;
+  password: string;
+}
+
+export interface AuthenticationDto {
+  email: string;
+  password: string;
+}
+
 export enum VacancyStatus {
   Open,
   Closed,

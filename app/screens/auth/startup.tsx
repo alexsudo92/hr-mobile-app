@@ -1,9 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { LogIn } from 'lucide-react-native';
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useUserInfo } from '@/hooks/userHook';
+import { deleteToken, getToken } from '@/lib/storage';
+import { useAuthStore } from '@/stores';
 import { NavigationProp } from '@/types';
 import { Button } from '@/ui/button';
 import { Icon } from '@/ui/icon';
@@ -11,6 +14,38 @@ import { Text } from '@/ui/text';
 
 const Startup = () => {
   const navigation = useNavigation<NavigationProp>();
+  const { setUserData, signIn, signOut } = useAuthStore();
+  const [initializing, setInitializing] = useState(true);
+
+  const [localToken, setLocalToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const savedToken = getToken();
+    if (savedToken) {
+      setLocalToken(savedToken);
+    }
+    setInitializing(false);
+  }, []);
+
+  const { data, isError } = useUserInfo(localToken);
+
+  useEffect(() => {
+    if (localToken && data) {
+      setUserData(data);
+      signIn();
+    } else if (localToken && isError) {
+      deleteToken();
+      signOut();
+    }
+  }, [localToken, data, isError, setUserData, signIn, signOut]);
+
+  if (initializing) {
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="black"></ActivityIndicator>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="flex-1 p-5">

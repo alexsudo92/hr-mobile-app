@@ -1,7 +1,7 @@
 import CandidateState from '@/app/components/CandidateState';
 import InteractionList from '@/app/components/InteractionList';
 import { interactions } from '@/data/mockData';
-import { employmentText, getPlural } from '@/lib/utils';
+import { employmentText, experienceText, getPlural } from '@/lib/utils';
 import { useCandidateStore } from '@/stores';
 import { CandidateData, NavigationProp, Workplace } from '@/types';
 import { Card, CardContent, CardHeader } from '@/ui/card';
@@ -102,9 +102,7 @@ const Viewer = ({ route }: any) => {
           <CardContent className="gap-2">
             <View className="flex-row items-center gap-2">
               <Icon as={Briefcase} size={20} />
-              <Text className="text-sm">
-                Опыт работы: {experience} {getPlural(experience, ['год', 'года', 'лет'])}
-              </Text>
+              <Text className="text-sm">Опыт работы: {experienceText(experience)}</Text>
             </View>
             <View className="flex-row items-center gap-2">
               <Icon as={GraduationCap} size={20} />
@@ -189,6 +187,7 @@ const Viewer = ({ route }: any) => {
             </Text>
           </CardContent>
         </Card>
+
         <InteractionList interactions={interactions.filter((x) => x.candidateId === id)} />
       </ScrollView>
     </SafeAreaView>

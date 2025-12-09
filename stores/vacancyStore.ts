@@ -1,4 +1,3 @@
-import { vacancies } from '@/data/mockData';
 import { VacancyData } from '@/types';
 import { create } from 'zustand';
 
@@ -7,15 +6,15 @@ type State = {
 };
 
 type Action = {
-  setData: (value: State['data']) => void;
+  setData: (value: VacancyData[]) => void;
   setVacancy: (value: VacancyData) => void;
   getVacancy: (id: string) => VacancyData;
   addVacancy: (value: VacancyData) => void;
-  resetData: (value: State['data']) => void;
+  resetData: () => void;
 };
 
 const useVacancyStore = create<State & Action>((set, get, store) => ({
-  data: vacancies,
+  data: [],
   setData: (value) => set(() => ({ data: value })),
   getVacancy: (id) => {
     const vacancy = get().data.find((x) => x.id === id);

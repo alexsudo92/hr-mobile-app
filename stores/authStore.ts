@@ -1,23 +1,22 @@
-import { userData1 } from '@/data/mockData';
 import { UserData } from '@/types';
 import { create } from 'zustand';
 
 type State = {
   isSignedIn: boolean;
-  data: UserData;
+  data: UserData | null;
 };
 
 type Action = {
   signIn: () => void;
-  logOut: () => void;
+  signOut: () => void;
   setUserData: (value: UserData) => void;
 };
 
 const useAuthStore = create<State & Action>((set) => ({
   isSignedIn: false,
-  data: userData1,
+  data: null,
   signIn: () => set(() => ({ isSignedIn: true })),
-  logOut: () => set(() => ({ isSignedIn: false })),
+  signOut: () => set(() => ({ isSignedIn: false, data: null })),
   setUserData: (value) => set(() => ({ data: value })),
 }));
 

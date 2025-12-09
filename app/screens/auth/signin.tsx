@@ -1,10 +1,13 @@
-import { Authentication } from '@/lib/dtoTypes';
-import { info, login } from '@/lib/httpClient';
-import { storage } from '@/lib/storage';
+import { useSignIn } from '@/hooks/userHook';
+import { info } from '@/lib/api';
+import { handleNetworkError } from '@/lib/errorHandlers';
+import { setToken } from '@/lib/storage';
 import { useAuthStore } from '@/stores';
+import { AuthenticationDto } from '@/types';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Text } from '@/ui/text';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -13,18 +16,32 @@ const SignIn = () => {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
 
+  const loginMutation = useSignIn();
+
   const handleLogin = async () => {
-    const data: Authentication = {
+    const data: AuthenticationDto = {
       email: mail,
       password: password,
     };
 
-    var token = await login(data);
-    var account = await info(token);
-    storage.set('token', token);
+    try {
+      const token = await loginMutation.mutateAsync(data);
+      if (!token) {
+        throw new Error('No token');
+      }
 
-    setUserData(account);
-    signIn();
+      const account = await info(token);
+      if (!account) {
+        throw new Error('No user');
+      }
+
+      setToken(token);
+      setUserData(account);
+      signIn();
+    } catch (error) {
+      const code = handleNetworkError(error as AxiosError);
+      console.log(code);
+    }
   };
 
   return (

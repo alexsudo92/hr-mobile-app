@@ -1,10 +1,13 @@
-import { Registration } from '@/lib/dtoTypes';
-import { info, login, register } from '@/lib/httpClient';
-import { storage } from '@/lib/storage';
+import { useRegister, useSignIn } from '@/hooks/userHook';
+import { info } from '@/lib/api';
+import { handleNetworkError } from '@/lib/errorHandlers';
+import { setToken } from '@/lib/storage';
 import { useAuthStore } from '@/stores';
+import { RegistrationDto } from '@/types';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Text } from '@/ui/text';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -16,22 +19,40 @@ const SignUp = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
 
+  const registerMutation = useRegister();
+  const loginMutation = useSignIn();
+
   const handleRegistration = async () => {
-    const data: Registration = {
+    const data: RegistrationDto = {
       phone: phone,
       email: mail,
       username: name,
       password: password,
     };
 
-    await register(data);
+    try {
+      await registerMutation.mutateAsync(data);
+      const token = await loginMutation.mutateAsync({
+        email: mail,
+        password: password,
+      });
 
-    const token = await login(data);
-    const userData = await info(token);
-    storage.set('token', token);
+      if (!token) {
+        throw new Error('No token');
+      }
 
-    setUserData(userData);
-    signIn();
+      const account = await info(token);
+      if (!account) {
+        throw new Error('No user');
+      }
+
+      setToken(token);
+      setUserData(account);
+      signIn();
+    } catch (error) {
+      const code = handleNetworkError(error as AxiosError);
+      console.log(code);
+    }
   };
 
   return (

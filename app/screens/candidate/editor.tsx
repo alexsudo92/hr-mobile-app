@@ -1,3 +1,4 @@
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import {
   BadgeRussianRuble,
@@ -34,7 +35,7 @@ const Editor = ({ route }: any) => {
   const candidate = getCandidate(route.params.id);
 
   const [editedCandidate, setEditedCandidate] = useState<CandidateData>(candidate);
-
+  const [date, setDate] = useState<Date>(new Date());
   const {
     name,
     status,
@@ -79,6 +80,17 @@ const Editor = ({ route }: any) => {
   const removeWorkplace = (index: number) => {
     const updatedWorkplaces = workplaces.filter((_, i) => i !== index);
     updateField('workplaces', updatedWorkplaces);
+  };
+
+  const showDatePicker = () => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange(event, date) {
+        if (date) setDate(date);
+      },
+      mode: 'date',
+      is24Hour: true,
+    });
   };
 
   return (
@@ -139,7 +151,9 @@ const Editor = ({ route }: any) => {
               </View>
             </CardContent>
           </Card>
-
+          <Button onPress={showDatePicker}>
+            <Text>Open</Text>
+          </Button>
           <Card>
             <CardContent className="gap-2">
               <View className="flex-row items-center gap-2">

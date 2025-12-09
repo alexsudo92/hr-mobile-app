@@ -32,3 +32,10 @@ export const getPlural = (number: number, forms: [string, string, string]): stri
 
   return forms[2];
 };
+
+export const experienceText = (experience: number) => {
+  if (experience === 0) return 'Без опыта';
+  if (experience === 1) return '1 год';
+  if (experience >= 2 && experience <= 4) return `${experience} года`;
+  return `${experience} лет`;
+};

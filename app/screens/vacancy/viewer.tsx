@@ -1,5 +1,5 @@
 import VacancyState from '@/app/components/VacancyState';
-import { employmentText, getPlural } from '@/lib/utils';
+import { employmentText, experienceText } from '@/lib/utils';
 import { useVacancyStore } from '@/stores';
 import { NavigationProp, VacancyData } from '@/types';
 import { Card, CardContent, CardHeader } from '@/ui/card';
@@ -74,9 +74,7 @@ const Viewer = ({ route }: any) => {
             </View>
             <View className="flex-row gap-2">
               <Icon as={Briefcase} size={20} />
-              <Text className="text-sm">
-                Опыт работы: {experience} {getPlural(experience, ['год', 'года', 'лет'])}
-              </Text>
+              <Text className="text-sm">Опыт работы: {experienceText(experience)}</Text>
             </View>
           </CardContent>
         </Card>

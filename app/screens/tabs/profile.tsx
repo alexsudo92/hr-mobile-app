@@ -1,11 +1,13 @@
-import { logout } from '@/lib/httpClient';
-import { storage } from '@/lib/storage';
+import { useSignOut } from '@/hooks/userHook';
+import { handleNetworkError } from '@/lib/errorHandlers';
+import { deleteToken, getToken } from '@/lib/storage';
 import { useAuthStore } from '@/stores';
-import { Roles } from '@/types';
+import { Roles, UserData } from '@/types';
 import { Avatar, AvatarImage } from '@/ui/avatar';
 import { Button } from '@/ui/button';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
+import { AxiosError } from 'axios';
 import {
   ArrowRight,
   Bell,
@@ -34,27 +36,22 @@ const roleText = (role: Roles) => {
 };
 
 const Profile = () => {
-  const { logOut, data, setUserData } = useAuthStore();
-
-  const { username, role, avatarUrl, token } = data;
+  const { signOut, data } = useAuthStore();
+  const { username, role, avatarUrl } = data as UserData;
+  const logoutMutation = useSignOut();
 
   const handleLogout = async () => {
-    console.log('logout attempt');
-    await logout(token);
+    const token = getToken();
+    if (!token) return;
+    try {
+      await logoutMutation.mutateAsync(token);
+      deleteToken();
 
-    setUserData({
-      id: '',
-      username: '',
-      email: '',
-      phoneNumber: '',
-      role: Roles.Hr,
-      avatarUrl: '',
-      token: '',
-    });
-
-    storage.set('token', '');
-
-    logOut();
+      signOut();
+    } catch (error) {
+      const code = handleNetworkError(error as AxiosError);
+      console.log(code);
+    }
   };
 
   return (
