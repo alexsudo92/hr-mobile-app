@@ -79,16 +79,14 @@ const CandidateCard = ({
       </CardContent>
       <Separator />
       <CardContent>
-        <View className="flex-row justify-center gap-1">
-          <Button onPress={() => navigation.navigate('candidateViewer', { id })} className="w-1/3">
+        <View className="justify-center gap-1">
+          <Button onPress={() => navigation.navigate('candidateViewer', { id })}>
             <Text>Просмотр</Text>
           </Button>
-          <Button onPress={() => navigation.navigate('candidateEditor', { id })} className="w-1/3">
-            <Text>Управление</Text>
+          <Button onPress={() => navigation.navigate('candidateEditor', { id })}>
+            <Text>Редактирование</Text>
           </Button>
-          <Button
-            onPress={() => navigation.navigate('candidateInteraction', { id })}
-            className="w-1/3">
+          <Button onPress={() => navigation.navigate('candidateInteraction', { id })}>
             <Text>Взаимодействие</Text>
           </Button>
         </View>

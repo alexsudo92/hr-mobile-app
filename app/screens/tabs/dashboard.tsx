@@ -1,5 +1,7 @@
 import { useStats } from '@/hooks/statsHook';
 import { getToken } from '@/lib/storage';
+import { useCandidateStore } from '@/stores';
+import { CandidateStatus } from '@/types';
 import { Text } from '@/ui/text';
 import React from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
@@ -9,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Dashboard = () => {
   const { data, isLoading, isError } = useStats(getToken());
-
+  const { data: candidates } = useCandidateStore();
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center">
@@ -149,6 +151,14 @@ const Dashboard = () => {
           </View>
         </View>
 
+        <View>
+          {candidates
+            .filter((x) => x.status === CandidateStatus.New)
+            .map((candidate) => (
+              <Text>{candidate.name}</Text>
+            ))}
+        </View>
+
         <View className="items-center">
           <Text className="text-center text-lg font-semibold">Статусы вакансий</Text>
           {vacancyChartData.length > 0 ? (
@@ -172,7 +182,7 @@ const Dashboard = () => {
           {candidateChartData.length > 0 ? (
             <PieChart
               data={candidateChartData}
-              width={350}
+              width={400}
               height={220}
               chartConfig={chartConfig}
               accessor="population"
@@ -190,7 +200,7 @@ const Dashboard = () => {
           {employmentChartData.length > 0 ? (
             <PieChart
               data={employmentChartData}
-              width={350}
+              width={400}
               height={220}
               chartConfig={chartConfig}
               accessor="population"
@@ -208,7 +218,7 @@ const Dashboard = () => {
           {vacancySalaryData ? (
             <BarChart
               data={vacancySalaryData}
-              width={350}
+              width={400}
               height={250}
               yAxisLabel=""
               showValuesOnTopOfBars
@@ -228,7 +238,7 @@ const Dashboard = () => {
           {candidateSalaryData ? (
             <BarChart
               data={candidateSalaryData}
-              width={350}
+              width={400}
               height={250}
               yAxisLabel=""
               showValuesOnTopOfBars

@@ -77,6 +77,7 @@ export default function RootLayout() {
                     headerTitle: 'Взаимодействие с кандидатом',
                     headerTitleAlign: 'center',
                     contentStyle: { flex: 1 },
+                    presentation: 'modal',
                   }}
                 />
               </Stack.Group>

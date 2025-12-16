@@ -9,8 +9,8 @@ import {
 } from '@/types';
 import axios from 'axios';
 
-const BASE_URL = 'https://localhost:7195';
-//const BASE_URL = 'http://10.115.192.210:5214';
+//const BASE_URL = 'https://localhost:7195';
+const BASE_URL = 'http://10.115.192.210:5214';
 
 export const http = axios.create({
   baseURL: BASE_URL,

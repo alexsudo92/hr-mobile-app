@@ -8,16 +8,7 @@ import { Button } from '@/ui/button';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
 import { AxiosError } from 'axios';
-import {
-  ArrowRight,
-  Bell,
-  Calendar,
-  Edit2,
-  LogOut,
-  Paperclip,
-  Shield,
-  User,
-} from 'lucide-react-native';
+import { ArrowRight, Calendar, Edit2, LogOut, Paperclip, Shield, User } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -79,11 +70,6 @@ const Profile = () => {
         <Button variant="outline" className="justify-between">
           <Icon as={Shield}></Icon>
           <Text>Безопасность</Text>
-          <Icon as={ArrowRight}></Icon>
-        </Button>
-        <Button variant="outline" className="justify-between">
-          <Icon as={Bell}></Icon>
-          <Text>Уведомления</Text>
           <Icon as={ArrowRight}></Icon>
         </Button>
         <Button variant="outline" className="justify-between">

@@ -1,5 +1,4 @@
 import CandidateState from '@/app/components/CandidateState';
-import InteractionList from '@/app/components/InteractionList';
 import { employmentText, experienceText, getPlural } from '@/lib/utils';
 import { useCandidateStore } from '@/stores';
 import { CandidateData, Workplace } from '@/types';
@@ -185,8 +184,6 @@ const Viewer = ({ route }: any) => {
             </Text>
           </CardContent>
         </Card>
-
-        <InteractionList interactions={interactions} />
       </ScrollView>
     </SafeAreaView>
   );
