@@ -50,10 +50,6 @@ const Candidates = () => {
     }
   }, [allCandidates, setData]);
 
-  useEffect(() => {
-    setFilteredData(allCandidates);
-  }, [allCandidates]);
-
   const handleNew = () => {
     const uniqueId = v7();
     const newCandidate: CandidateData = {
@@ -70,7 +66,7 @@ const Candidates = () => {
       employment: EmploymentType.FullTime,
       workHours: 0,
       respondDate: new Date(),
-      vacancyId: '',
+      vacancyIds: [],
       interactions: [],
     };
 
@@ -138,7 +134,7 @@ const Candidates = () => {
         renderItem={({
           item: {
             id,
-            vacancyId,
+            vacancyIds,
             salary,
             education,
             workHours,
@@ -159,7 +155,7 @@ const Candidates = () => {
             employment={employment}
             salary={salary}
             education={education}
-            vacancyId={vacancyId}
+            vacancyIds={vacancyIds}
           />
         )}
         keyExtractor={(item) => item.id}

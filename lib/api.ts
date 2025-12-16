@@ -3,6 +3,7 @@ import {
   CandidateData,
   RegistrationDto,
   Roles,
+  Stats,
   UserData,
   VacancyData,
 } from '@/types';
@@ -131,6 +132,20 @@ export const getCandidates = async (
     }));
 
     return candidates;
+  }
+
+  return null;
+};
+
+export const getStats = async (token: string): Promise<Stats | null> => {
+  const response = await http.get('/stats/get', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status === 200) {
+    return response.data as Stats;
   }
 
   return null;

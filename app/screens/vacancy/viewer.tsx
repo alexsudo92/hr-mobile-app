@@ -8,7 +8,7 @@ import { Separator } from '@/ui/separator';
 import { Text } from '@/ui/text';
 import { useNavigation } from '@react-navigation/native';
 import { Briefcase, Building, Clock, Edit, MapPin } from 'lucide-react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -36,6 +36,8 @@ const Viewer = ({ route }: any) => {
     features,
     experience,
   }: VacancyData = getVacancy(route.params.id);
+
+  const [statusChanged, setStatus] = useState(status);
 
   return (
     <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>

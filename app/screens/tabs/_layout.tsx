@@ -1,11 +1,18 @@
-import VacanciesPage from '@/app/screens/tabs/vacancies';
 import { Icon } from '@/ui/icon';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BriefcaseBusiness, LucideIcon, Notebook, User } from 'lucide-react-native';
+import {
+  BriefcaseBusiness,
+  LayoutDashboard,
+  LucideIcon,
+  Notebook,
+  User,
+} from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import CandidatesPage from './candidates';
+import Dashboard from './dashboard';
 import ProfilePage from './profile';
+import VacanciesPage from './vacancies';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +34,13 @@ const TabLayout = () => {
         headerShown: false,
         tabBarShowLabel: false,
       }}>
+      <Tab.Screen
+        name="dashboard"
+        options={{
+          tabBarIcon: ({ focused }) => <TabIcon focused={focused} icon={LayoutDashboard} />,
+        }}
+        component={Dashboard}
+      />
       <Tab.Screen
         name="vacancies"
         options={{

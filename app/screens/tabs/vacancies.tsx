@@ -48,10 +48,6 @@ const Vacancies = () => {
     }
   }, [allVacancies, setData]);
 
-  useEffect(() => {
-    setFilteredData(allVacancies);
-  }, [allVacancies]);
-
   const handleNew = () => {
     const uniqueId = v7();
     const newVacancy: VacancyData = {

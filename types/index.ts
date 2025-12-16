@@ -8,6 +8,7 @@ export type Pages = {
   vacancyEditor: { id: string };
   candidateViewer: { id: string };
   candidateEditor: { id: string };
+  candidateInteraction: { id: string };
 };
 
 export type NavigationProp = NativeStackNavigationProp<Pages>;
@@ -109,7 +110,7 @@ export type CandidateData = {
   employment: EmploymentType;
   workHours: number;
   respondDate: Date;
-  vacancyId: string;
+  vacancyIds: string[];
   interactions: Interaction[];
 };
 
@@ -126,4 +127,14 @@ export type Interaction = {
   message: string;
   candidateId: string;
   userId: string;
+};
+
+export type Stats = {
+  totalVacancies: number;
+  totalCandidates: number;
+  vacancyStatusCounts: Partial<Record<VacancyStatus, number>>;
+  candidateStatusCounts: Partial<Record<CandidateStatus, number>>;
+  employmentTypeCounts: Partial<Record<EmploymentType, number>>;
+  avgVacancySalary: Partial<Record<EmploymentType, number>>;
+  avgCandidateSalary: Partial<Record<EmploymentType, number>>;
 };

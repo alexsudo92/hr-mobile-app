@@ -1,4 +1,4 @@
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import {
   BadgeRussianRuble,
@@ -35,7 +35,10 @@ const Editor = ({ route }: any) => {
   const candidate = getCandidate(route.params.id);
 
   const [editedCandidate, setEditedCandidate] = useState<CandidateData>(candidate);
-  const [date, setDate] = useState<Date>(new Date());
+  const [show, setShow] = useState(false);
+  const [workplaceIndex, setWorkplaceIndex] = useState<number>(0);
+  const [currentField, setCurrentField] = useState<'startDate' | 'endDate'>();
+
   const {
     name,
     status,
@@ -47,7 +50,7 @@ const Editor = ({ route }: any) => {
     employment,
     workHours,
     respondDate,
-    vacancyId,
+    vacancyIds,
     phone,
     mail,
   } = editedCandidate;
@@ -82,15 +85,18 @@ const Editor = ({ route }: any) => {
     updateField('workplaces', updatedWorkplaces);
   };
 
-  const showDatePicker = () => {
-    DateTimePickerAndroid.open({
-      value: date,
-      onChange(event, date) {
-        if (date) setDate(date);
-      },
-      mode: 'date',
-      is24Hour: true,
-    });
+  const showDatepicker = (index: number, field: 'startDate' | 'endDate') => {
+    setWorkplaceIndex(index);
+    setCurrentField(field);
+    setShow(true);
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShow(false);
+
+    if (selectedDate && workplaceIndex !== null && currentField) {
+      updateWorkplace(workplaceIndex, currentField, selectedDate);
+    }
   };
 
   return (
@@ -151,9 +157,7 @@ const Editor = ({ route }: any) => {
               </View>
             </CardContent>
           </Card>
-          <Button onPress={showDatePicker}>
-            <Text>Open</Text>
-          </Button>
+
           <Card>
             <CardContent className="gap-2">
               <View className="flex-row items-center gap-2">
@@ -195,6 +199,18 @@ const Editor = ({ route }: any) => {
             </CardHeader>
             <Separator />
             <CardContent className="gap-4">
+              {show && (
+                <DateTimePicker
+                  value={
+                    workplaceIndex !== null && currentField
+                      ? new Date(workplaces[workplaceIndex][currentField])
+                      : new Date()
+                  }
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
               {workplaces.map((workplace: Workplace, index) => (
                 <View key={index} className="gap-2 border-gray-200">
                   <View className="flex-row items-center gap-2">
@@ -213,36 +229,18 @@ const Editor = ({ route }: any) => {
                   </View>
                   <View className="flex-row gap-1">
                     <Input
+                      showSoftInputOnFocus={false}
+                      onPress={() => showDatepicker(index, 'startDate')}
                       value={workplace.startDate.toLocaleDateString()}
-                      onChangeText={(value) => {
-                        const dateParts = value.split('.');
-                        if (dateParts.length === 3) {
-                          const day = parseInt(dateParts[0]);
-                          const month = parseInt(dateParts[1]) - 1;
-                          const year = parseInt(dateParts[2]);
-                          if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-                            updateWorkplace(index, 'startDate', new Date(year, month, day));
-                          }
-                        }
-                      }}
                       className="flex-1 text-xs text-slate-600"
                       placeholder="Дата начала"
                       keyboardType="number-pad"
                     />
                     <Text className="self-center text-xs">—</Text>
                     <Input
+                      showSoftInputOnFocus={false}
+                      onPress={() => showDatepicker(index, 'endDate')}
                       value={workplace.endDate.toLocaleDateString()}
-                      onChangeText={(value) => {
-                        const dateParts = value.split('.');
-                        if (dateParts.length === 3) {
-                          const day = parseInt(dateParts[0]);
-                          const month = parseInt(dateParts[1]) - 1;
-                          const year = parseInt(dateParts[2]);
-                          if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-                            updateWorkplace(index, 'endDate', new Date(year, month, day));
-                          }
-                        }
-                      }}
                       className="flex-1 text-xs text-slate-600"
                       placeholder="Дата окончания"
                       keyboardType="number-pad"
@@ -311,8 +309,8 @@ const Editor = ({ route }: any) => {
                 <Text>{respondDate.toLocaleDateString()}</Text>
               </View>
               <Input
-                value={vacancyId}
-                onChangeText={(value) => updateField('vacancyId', value)}
+                value={vacancyIds[0]}
+                onChangeText={(value) => updateField('vacancyIds', [value])}
                 className="text-sm"
                 placeholder="ID вакансии"
               />

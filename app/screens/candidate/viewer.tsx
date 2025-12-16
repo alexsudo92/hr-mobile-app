@@ -2,12 +2,11 @@ import CandidateState from '@/app/components/CandidateState';
 import InteractionList from '@/app/components/InteractionList';
 import { employmentText, experienceText, getPlural } from '@/lib/utils';
 import { useCandidateStore } from '@/stores';
-import { CandidateData, NavigationProp, Workplace } from '@/types';
+import { CandidateData, Workplace } from '@/types';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
 import { Separator } from '@/ui/separator';
 import { Text } from '@/ui/text';
-import { useNavigation } from '@react-navigation/native';
 import {
   BadgeRussianRuble,
   Briefcase,
@@ -49,7 +48,6 @@ const calculateWorkDuration = (startDate: Date, endDate: Date): string => {
 
 const Viewer = ({ route }: any) => {
   const { getCandidate } = useCandidateStore();
-  const navigation = useNavigation<NavigationProp>();
 
   const {
     id,
@@ -63,7 +61,7 @@ const Viewer = ({ route }: any) => {
     employment,
     workHours,
     respondDate,
-    vacancyId,
+    vacancyIds,
     phone,
     mail,
     interactions,
@@ -183,7 +181,7 @@ const Viewer = ({ route }: any) => {
               </Text>
             </View>
             <Text className="text-sm">
-              ID вакансии: <Text className="font-bold">{vacancyId}</Text>
+              ID вакансии: <Text className="font-bold">{vacancyIds[0]}</Text>
             </Text>
           </CardContent>
         </Card>

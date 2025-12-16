@@ -13,7 +13,7 @@ import CandidateState from './CandidateState';
 
 interface CandidateCardProps {
   id: string;
-  vacancyId: string;
+  vacancyIds: string[];
   name: string;
   salary: number;
   status: CandidateStatus;
@@ -33,7 +33,7 @@ const experienceText = (experience: number) => {
 
 const CandidateCard = ({
   id,
-  vacancyId,
+  vacancyIds,
   name,
   salary,
   status,
@@ -80,11 +80,16 @@ const CandidateCard = ({
       <Separator />
       <CardContent>
         <View className="flex-row justify-center gap-1">
-          <Button onPress={() => navigation.navigate('candidateViewer', { id })} className="w-1/2">
+          <Button onPress={() => navigation.navigate('candidateViewer', { id })} className="w-1/3">
             <Text>Просмотр</Text>
           </Button>
-          <Button onPress={() => navigation.navigate('candidateEditor', { id })} className="w-1/2">
+          <Button onPress={() => navigation.navigate('candidateEditor', { id })} className="w-1/3">
             <Text>Управление</Text>
+          </Button>
+          <Button
+            onPress={() => navigation.navigate('candidateInteraction', { id })}
+            className="w-1/3">
+            <Text>Взаимодействие</Text>
           </Button>
         </View>
       </CardContent>

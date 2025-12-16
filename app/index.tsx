@@ -12,6 +12,7 @@ import SignIn from './screens/auth/signin';
 import SignUp from './screens/auth/signup';
 import Start from './screens/auth/startup';
 import CandidateEditor from './screens/candidate/editor';
+import CandidateInteraction from './screens/candidate/interactions';
 import CandidateViewer from './screens/candidate/viewer';
 import Index from './screens/tabs/_layout';
 import VacancyEditor from './screens/vacancy/editor';
@@ -65,6 +66,15 @@ export default function RootLayout() {
                   component={CandidateEditor}
                   options={{
                     headerTitle: 'Редактирование кандидата',
+                    headerTitleAlign: 'center',
+                    contentStyle: { flex: 1 },
+                  }}
+                />
+                <Stack.Screen
+                  name="candidateInteraction"
+                  component={CandidateInteraction}
+                  options={{
+                    headerTitle: 'Взаимодействие с кандидатом',
                     headerTitleAlign: 'center',
                     contentStyle: { flex: 1 },
                   }}

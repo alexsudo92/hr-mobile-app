@@ -56,9 +56,6 @@ const Startup = () => {
         <Text variant="h3" className="mt-10 text-center">
           Войдите в свою учетную запись
         </Text>
-        <Text variant="h3" className="mt-5 text-center">
-          Доступ к ней сохранится на вашем устройстве
-        </Text>
       </View>
 
       <View className="flex-2 justify-center gap-3">

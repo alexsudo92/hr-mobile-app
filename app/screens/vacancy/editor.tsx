@@ -1,5 +1,7 @@
 import EditableList from '@/app/components/EditableList';
 import VacancyState from '@/app/components/VacancyState';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import { useVacancyStore } from '@/stores';
 import { EmploymentType, NavigationProp, VacancyData } from '@/types';
 import { Button } from '@/ui/button';
@@ -21,6 +23,9 @@ const Editor = ({ route }: any) => {
   const vacancy = getVacancy(route.params.id);
   const [editedVacancy, setEditedVacancy] = useState<VacancyData>(vacancy);
 
+  const [show, setShow] = useState(false);
+  const [currentField, setCurrentField] = useState<'post' | 'end'>();
+
   const {
     name,
     status,
@@ -41,27 +46,29 @@ const Editor = ({ route }: any) => {
     experience,
   } = editedVacancy;
 
-  const [postDateString, setPostDate] = useState<string>(postDate.toLocaleDateString());
-  const [endDateString, setEndDate] = useState<string>(endDate.toLocaleDateString());
   const navigation = useNavigation<NavigationProp>();
 
   const handleSave = () => {
-    const pDs = postDateString.split('.');
-    const eDs = endDateString.split('.');
-
-    const updatedVacancy = {
-      ...editedVacancy,
-      postDate: new Date(Number(pDs[2]), Number(pDs[1]) - 1, Number(pDs[0])),
-      endDate: new Date(Number(eDs[2]), Number(eDs[1]) - 1, Number(eDs[0])),
-    };
-
-    setVacancy(updatedVacancy);
+    setVacancy(editedVacancy);
 
     navigation.goBack();
   };
 
   const updateField = (field: keyof VacancyData, value: any) => {
     setEditedVacancy((prev) => (prev ? { ...prev, [field]: value } : vacancy));
+  };
+
+  const showDatePicker = (field: 'post' | 'end') => {
+    setCurrentField(field);
+    setShow(true);
+  };
+
+  const onChange = (event: any, selectedDate?: Date) => {
+    setShow(false);
+
+    currentField === 'post'
+      ? updateField('postDate', selectedDate)
+      : updateField('endDate', selectedDate);
   };
 
   return (
@@ -164,21 +171,30 @@ const Editor = ({ route }: any) => {
             <CardContent className="gap-2">
               <Text className="text-sm">Вакансия открыта:</Text>
               <Input
+                showSoftInputOnFocus={false}
                 keyboardType="number-pad"
-                value={postDateString}
-                onChangeText={(value) => setPostDate(value)}
+                value={postDate.toLocaleDateString()}
+                onPress={() => showDatePicker('post')}
                 placeholder="День.Месяц.Год"
               />
               <Text className="text-sm">Вакансия закроется:</Text>
               <Input
+                showSoftInputOnFocus={false}
                 keyboardType="number-pad"
-                value={endDateString}
-                onChangeText={(value) => setEndDate(value)}
+                value={endDate.toLocaleDateString()}
+                onPress={() => showDatePicker('end')}
                 placeholder="День.Месяц.Год"
               />
             </CardContent>
           </Card>
-
+          {show && (
+            <DateTimePicker
+              value={currentField === 'post' ? postDate : endDate}
+              mode="date"
+              display="calendar"
+              onChange={onChange}
+            />
+          )}
           <Card>
             <CardHeader>
               <Text className="text-lg font-semibold">Образование</Text>
