@@ -19,6 +19,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CandidateState from '@/app/components/CandidateState';
 import EditableList from '@/app/components/EditableList';
+import { addCandidate } from '@/lib/api';
+import { getToken } from '@/lib/storage';
 import { useCandidateStore } from '@/stores';
 import { CandidateData, EmploymentType, NavigationProp, Workplace } from '@/types';
 import { Button } from '@/ui/button';
@@ -31,7 +33,7 @@ import { Text } from '@/ui/text';
 const Editor = ({ route }: any) => {
   const navigation = useNavigation<NavigationProp>();
 
-  const { getCandidate, setCandidate } = useCandidateStore();
+  const { getCandidate, updateCandidate } = useCandidateStore();
   const candidate = getCandidate(route.params.id);
 
   const [editedCandidate, setEditedCandidate] = useState<CandidateData>(candidate);
@@ -55,9 +57,11 @@ const Editor = ({ route }: any) => {
     mail,
   } = editedCandidate;
 
-  const handleSave = () => {
-    setCandidate(editedCandidate);
+  const handleSave = async () => {
+    console.log(editedCandidate.interactions);
 
+    updateCandidate(editedCandidate);
+    const response = await addCandidate(getToken()!, editedCandidate);
     navigation.goBack();
   };
 

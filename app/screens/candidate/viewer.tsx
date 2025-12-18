@@ -1,11 +1,14 @@
 import CandidateState from '@/app/components/CandidateState';
+import { getOneVacancy } from '@/lib/api';
+import { getToken } from '@/lib/storage';
 import { employmentText, experienceText, getPlural } from '@/lib/utils';
-import { useCandidateStore } from '@/stores';
-import { CandidateData, Workplace } from '@/types';
+import { useCandidateStore, useVacancyStore } from '@/stores';
+import { CandidateData, NavigationProp, Workplace } from '@/types';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
 import { Separator } from '@/ui/separator';
 import { Text } from '@/ui/text';
+import { useNavigation } from '@react-navigation/native';
 import {
   BadgeRussianRuble,
   Briefcase,
@@ -15,8 +18,9 @@ import {
   GraduationCap,
   Mail,
   Phone,
+  Wrench,
 } from 'lucide-react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -47,6 +51,9 @@ const calculateWorkDuration = (startDate: Date, endDate: Date): string => {
 
 const Viewer = ({ route }: any) => {
   const { getCandidate } = useCandidateStore();
+  const { getVacancy, addVacancy } = useVacancyStore();
+  const [vacancyName, setVacancyName] = useState<string>('');
+  const navigation = useNavigation<NavigationProp>();
 
   const {
     id,
@@ -63,8 +70,29 @@ const Viewer = ({ route }: any) => {
     vacancyIds,
     phone,
     mail,
-    interactions,
   }: CandidateData = getCandidate(route.params.id);
+
+  useEffect(() => {
+    const loadVacancy = async () => {
+      try {
+        const existing = getVacancy(vacancyIds[0]);
+        setVacancyName(existing.name);
+      } catch (error) {
+        const token = getToken();
+        if (!token) {
+          return;
+        }
+
+        const vacancy = await getOneVacancy(token, vacancyIds[0]);
+        if (vacancy) {
+          addVacancy(vacancy);
+          setVacancyName(vacancy.name);
+        }
+      }
+    };
+
+    loadVacancy();
+  }, [vacancyIds, getVacancy, addVacancy]);
 
   return (
     <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
@@ -81,6 +109,31 @@ const Viewer = ({ route }: any) => {
           <CardContent className="flex-row items-center gap-2">
             <Icon as={BadgeRussianRuble} size={20} />
             <Text className="text-lg font-medium text-green-600">{salary.toLocaleString()} ₽</Text>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Text className="text-lg font-semibold">Информация об отклике</Text>
+          </CardHeader>
+          <Separator />
+          <CardContent className="gap-2">
+            <View className="flex-row items-center gap-2">
+              <Icon as={Wrench} size={20} />
+              <Text className="text-sm">
+                Вакансия:{' '}
+                <Text
+                  onPress={() => navigation.navigate('vacancyViewer', { id: vacancyIds[0] })}
+                  className="font-bold italic text-indigo-500 underline">
+                  {vacancyName}
+                </Text>
+              </Text>
+            </View>
+            <View className="flex-row items-center gap-2">
+              <Icon as={Calendar} size={20} />
+              <Text className="text-sm">
+                Дата отклика: <Text className="font-bold">{respondDate.toLocaleDateString()}</Text>
+              </Text>
+            </View>
           </CardContent>
         </Card>
         <Card>
@@ -164,24 +217,6 @@ const Viewer = ({ route }: any) => {
               <Icon as={Clock} size={20} />
               <Text className="text-sm">{workHours} часов в неделю</Text>
             </View>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <Text className="text-lg font-semibold">Информация об отклике</Text>
-          </CardHeader>
-          <Separator />
-          <CardContent className="gap-2">
-            <View className="flex-row items-center gap-2">
-              <Icon as={Calendar} size={20} />
-              <Text className="text-sm">
-                Дата отклика: <Text className="font-bold">{respondDate.toLocaleDateString()}</Text>
-              </Text>
-            </View>
-            <Text className="text-sm">
-              ID вакансии: <Text className="font-bold">{vacancyIds[0]}</Text>
-            </Text>
           </CardContent>
         </Card>
       </ScrollView>

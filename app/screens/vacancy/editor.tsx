@@ -1,9 +1,12 @@
 import EditableList from '@/app/components/EditableList';
-import VacancyState from '@/app/components/VacancyState';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { useVacancyStore } from '@/stores';
-import { EmploymentType, NavigationProp, VacancyData } from '@/types';
+import StatusSelector from '@/app/components/StatusSelector';
+import VacancyState from '@/app/components/VacancyState';
+import { addVacancy } from '@/lib/api';
+import { getToken } from '@/lib/storage';
+import { useAuthStore, useVacancyStore } from '@/stores';
+import { EmploymentType, NavigationProp, Roles, VacancyData, VacancyStatus } from '@/types';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader } from '@/ui/card';
 import { Icon } from '@/ui/icon';
@@ -17,8 +20,15 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const vacancyOptions = [
+  { label: 'Открыта', value: VacancyStatus.Open },
+  { label: 'На согласовании', value: VacancyStatus.OnHold },
+  { label: 'Закрыта', value: VacancyStatus.Closed },
+];
+
 const Editor = ({ route }: any) => {
-  const { getVacancy, setVacancy } = useVacancyStore();
+  const { getVacancy, updateVacancy } = useVacancyStore();
+  const { data } = useAuthStore();
 
   const vacancy = getVacancy(route.params.id);
   const [editedVacancy, setEditedVacancy] = useState<VacancyData>(vacancy);
@@ -48,8 +58,9 @@ const Editor = ({ route }: any) => {
 
   const navigation = useNavigation<NavigationProp>();
 
-  const handleSave = () => {
-    setVacancy(editedVacancy);
+  const handleSave = async () => {
+    updateVacancy(editedVacancy);
+    const response = await addVacancy(getToken()!, editedVacancy);
 
     navigation.goBack();
   };
@@ -89,10 +100,7 @@ const Editor = ({ route }: any) => {
                   className="text-2xl font-semibold"
                   placeholder="Название вакансии"
                 />
-
-                <VacancyState className="my-2" status={status} />
-
-                <View className="flex-row gap-2">
+                <View className="my-2 flex-row gap-2">
                   <Input
                     value={startSalary.toString()}
                     onChangeText={(value) => updateField('startSalary', Number(value))}
@@ -113,6 +121,27 @@ const Editor = ({ route }: any) => {
               </View>
             </CardHeader>
           </Card>
+
+          {data?.role !== Roles.Hr && (
+            <Card>
+              <CardHeader>
+                <Text className="text-lg font-semibold">Статус вакансии</Text>
+              </CardHeader>
+              <Separator />
+              <CardContent>
+                <VacancyState className="my-2" status={status} />
+              </CardContent>
+              <Separator />
+              <CardContent>
+                <StatusSelector
+                  currentStatus={status}
+                  onStatusChange={(e) => updateField('status', e)}
+                  options={vacancyOptions}
+                />
+                <Separator className="my-2" />
+              </CardContent>
+            </Card>
+          )}
 
           <Card>
             <CardContent className="gap-2">

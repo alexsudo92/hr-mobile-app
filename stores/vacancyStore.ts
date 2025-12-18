@@ -9,6 +9,7 @@ type Action = {
   setData: (value: VacancyData[]) => void;
   setVacancy: (value: VacancyData) => void;
   getVacancy: (id: string) => VacancyData;
+  updateVacancy: (value: VacancyData) => void;
   addVacancy: (value: VacancyData) => void;
   resetData: () => void;
 };
@@ -28,6 +29,10 @@ const useVacancyStore = create<State & Action>((set, get, store) => ({
       data: [...state.data, value],
     })),
   setVacancy: (value) =>
+    set((state) => ({
+      data: state.data.map((vacancy) => (vacancy.id === value.id ? value : vacancy)),
+    })),
+  updateVacancy: (value) =>
     set((state) => ({
       data: state.data.map((vacancy) => (vacancy.id === value.id ? value : vacancy)),
     })),

@@ -8,7 +8,7 @@ import { Button } from '@/ui/button';
 import { Icon } from '@/ui/icon';
 import { Text } from '@/ui/text';
 import { AxiosError } from 'axios';
-import { ArrowRight, Calendar, Edit2, LogOut, Paperclip, Shield, User } from 'lucide-react-native';
+import { ArrowRight, LogOut } from 'lucide-react-native';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -28,7 +28,7 @@ const roleText = (role: Roles) => {
 
 const Profile = () => {
   const { signOut, data } = useAuthStore();
-  const { username, role, avatarUrl } = data as UserData;
+  const { username, role, avatarUrl, email, phoneNumber } = data as UserData;
   const logoutMutation = useSignOut();
 
   const handleLogout = async () => {
@@ -57,33 +57,21 @@ const Profile = () => {
       </View>
 
       <View className="mt-5 w-full flex-1 gap-2">
-        <Button variant="outline" className="justify-between">
-          <Icon as={User}></Icon>
-          <Text>Профиль</Text>
-          <Icon as={Edit2}></Icon>
-        </Button>
-        <Button variant="outline" className="justify-between">
-          <Icon as={Calendar}></Icon>
-          <Text>Календарь</Text>
-          <Icon as={ArrowRight}></Icon>
-        </Button>
-        <Button variant="outline" className="justify-between">
-          <Icon as={Shield}></Icon>
-          <Text>Безопасность</Text>
-          <Icon as={ArrowRight}></Icon>
-        </Button>
-        <Button variant="outline" className="justify-between">
-          <Icon as={Paperclip}></Icon>
-          <Text>Документы</Text>
-          <Icon as={ArrowRight}></Icon>
-        </Button>
+        <View className="flex-row justify-between">
+          <Text className="text-lg">Номер телефона:</Text>
+          <Text className="font-semibold"> {phoneNumber}</Text>
+        </View>
+        <View className="flex-row justify-between">
+          <Text className="text-lg">Почта:</Text>
+          <Text className="font-semibold">{email}</Text>
+        </View>
       </View>
 
       <View className="flex-1 justify-end">
         <Button onPress={handleLogout} className="justify-between bg-red-700">
-          <Icon color={'white'} as={LogOut}></Icon>
+          <Icon color="white" as={LogOut}></Icon>
           <Text className="font-semibold">Выход</Text>
-          <Icon color={'white'} as={ArrowRight}></Icon>
+          <Icon color="white" as={ArrowRight}></Icon>
         </Button>
       </View>
     </SafeAreaView>

@@ -1,7 +1,6 @@
 import { useStats } from '@/hooks/statsHook';
 import { getToken } from '@/lib/storage';
 import { useCandidateStore } from '@/stores';
-import { CandidateStatus } from '@/types';
 import { Text } from '@/ui/text';
 import React from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
@@ -12,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Dashboard = () => {
   const { data, isLoading, isError } = useStats(getToken());
   const { data: candidates } = useCandidateStore();
+
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center">
@@ -134,9 +134,12 @@ const Dashboard = () => {
 
   return (
     <SafeAreaView edges={{ bottom: 'off', top: 'maximum' }} className="flex-1">
-      <ScrollView className="flex-1 gap-5 bg-white p-5 dark:bg-gray-900">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="flex-1 bg-white"
+        contentContainerClassName="gap-2 p-5">
         <Text className="text-center" variant={'h3'}>
-          Dashboard
+          Статистика
         </Text>
 
         <View className="mb-5 mt-5 flex-row justify-between gap-5">
@@ -151,20 +154,12 @@ const Dashboard = () => {
           </View>
         </View>
 
-        <View>
-          {candidates
-            .filter((x) => x.status === CandidateStatus.New)
-            .map((candidate) => (
-              <Text>{candidate.name}</Text>
-            ))}
-        </View>
-
         <View className="items-center">
           <Text className="text-center text-lg font-semibold">Статусы вакансий</Text>
           {vacancyChartData.length > 0 ? (
             <PieChart
               data={vacancyChartData}
-              width={400}
+              width={350}
               height={220}
               chartConfig={chartConfig}
               accessor="population"
@@ -182,7 +177,7 @@ const Dashboard = () => {
           {candidateChartData.length > 0 ? (
             <PieChart
               data={candidateChartData}
-              width={400}
+              width={350}
               height={220}
               chartConfig={chartConfig}
               accessor="population"
@@ -200,7 +195,7 @@ const Dashboard = () => {
           {employmentChartData.length > 0 ? (
             <PieChart
               data={employmentChartData}
-              width={400}
+              width={350}
               height={220}
               chartConfig={chartConfig}
               accessor="population"
@@ -218,7 +213,7 @@ const Dashboard = () => {
           {vacancySalaryData ? (
             <BarChart
               data={vacancySalaryData}
-              width={400}
+              width={350}
               height={250}
               yAxisLabel=""
               showValuesOnTopOfBars
@@ -238,7 +233,7 @@ const Dashboard = () => {
           {candidateSalaryData ? (
             <BarChart
               data={candidateSalaryData}
-              width={400}
+              width={350}
               height={250}
               yAxisLabel=""
               showValuesOnTopOfBars

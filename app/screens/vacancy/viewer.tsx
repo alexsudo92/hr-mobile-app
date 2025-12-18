@@ -37,8 +37,6 @@ const Viewer = ({ route }: any) => {
     experience,
   }: VacancyData = getVacancy(route.params.id);
 
-  const [statusChanged, setStatus] = useState(status);
-
   return (
     <SafeAreaView className="p-5" edges={{ bottom: 'maximum' }}>
       <TouchableOpacity

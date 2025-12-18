@@ -7,13 +7,7 @@ This is a [React Native](https://reactnative.dev/) project built with [Expo](htt
 To run the development server:
 
 ```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
+    npx expo start
 ```
 
 This will start the Expo Dev Server. Open the app in:
@@ -21,9 +15,6 @@ This will start the Expo Dev Server. Open the app in:
 - **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
 - **Android**: press `a` to launch in the Android emulator
 - **Web**: press `w` to run in a browser
-
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
-
 
 ## Project Features
 
